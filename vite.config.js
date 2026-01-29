@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./", // relative paths for Netlify
+  base: "/", // relative paths for Netlify
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },
