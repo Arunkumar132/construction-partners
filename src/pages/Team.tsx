@@ -5,31 +5,35 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import teamGroup from "@/assets/team-group.jpg";
+import teamCeo from "@/assets/team-ceo.jpg";
+import teamCoo from "@/assets/team-coo.jpg";
+import teamArchitect from "@/assets/team-architect.jpg";
+import teamEngineer from "@/assets/team-engineer.jpg";
 
 const leadership = [
   {
     name: "Robert Martinez",
     position: "Founder & CEO",
     bio: "With 20+ years in construction, Robert founded BuildCraft with a vision to redefine industry standards.",
-    image: "👨‍💼",
+    image: teamCeo,
   },
   {
     name: "Sarah Williams",
     position: "Chief Operations Officer",
     bio: "Sarah ensures seamless project delivery with her expertise in operations and project management.",
-    image: "👩‍💼",
+    image: teamCoo,
   },
   {
     name: "David Chen",
     position: "Chief Architect",
     bio: "David leads our design team, bringing innovative architectural solutions to every project.",
-    image: "👨‍🔧",
+    image: teamArchitect,
   },
   {
     name: "Emily Thompson",
     position: "Director of Engineering",
     bio: "Emily oversees all engineering operations, ensuring structural excellence and safety.",
-    image: "👩‍🔧",
+    image: teamEngineer,
   },
 ];
 
@@ -114,8 +118,12 @@ const Team = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all group"
               >
-                <div className="w-24 h-24 rounded-full bg-accent/10 flex items-center justify-center text-5xl mx-auto mb-6">
-                  {member.image}
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-center">
                   <h3 className="text-xl font-display font-bold text-foreground">
