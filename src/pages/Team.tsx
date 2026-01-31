@@ -1,41 +1,20 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Linkedin, Mail, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTeamMembers } from "@/hooks/useTeamMembers";
 import teamGroup from "@/assets/team-group.jpg";
+
+// Fallback static images for team members without image_url
 import teamCeo from "@/assets/team-ceo.jpg";
 import teamCoo from "@/assets/team-coo.jpg";
 import teamArchitect from "@/assets/team-architect.jpg";
 import teamEngineer from "@/assets/team-engineer.jpg";
 
-const leadership = [
-  {
-    name: "Robert Martinez",
-    position: "Founder & CEO",
-    bio: "With 20+ years in construction, Robert founded BuildCraft with a vision to redefine industry standards.",
-    image: teamCeo,
-  },
-  {
-    name: "Sarah Williams",
-    position: "Chief Operations Officer",
-    bio: "Sarah ensures seamless project delivery with her expertise in operations and project management.",
-    image: teamCoo,
-  },
-  {
-    name: "David Chen",
-    position: "Chief Architect",
-    bio: "David leads our design team, bringing innovative architectural solutions to every project.",
-    image: teamArchitect,
-  },
-  {
-    name: "Emily Thompson",
-    position: "Director of Engineering",
-    bio: "Emily oversees all engineering operations, ensuring structural excellence and safety.",
-    image: teamEngineer,
-  },
-];
+const fallbackImages = [teamCeo, teamCoo, teamArchitect, teamEngineer];
 
 const departments = [
   { name: "Architecture & Design", count: 12 },
@@ -66,6 +45,12 @@ const values = [
 ];
 
 const Team = () => {
+  const { teamMembers, isLoading } = useTeamMembers();
+  
+  // Separate leadership from regular team members
+  const leadership = teamMembers.filter(m => m.is_leadership);
+  const hasTeamData = teamMembers.length > 0;
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -108,47 +93,91 @@ const Team = () => {
             title="Meet Our Leaders"
             subtitle="The visionaries driving BuildCraft forward"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {leadership.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all group"
-              >
-                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+          
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="bg-card rounded-xl p-6 shadow-card">
+                  <Skeleton className="w-32 h-32 rounded-full mx-auto mb-6" />
+                  <Skeleton className="h-6 w-3/4 mx-auto mb-2" />
+                  <Skeleton className="h-4 w-1/2 mx-auto mb-3" />
+                  <Skeleton className="h-16 w-full" />
                 </div>
-                <div className="text-center">
-                  <h3 className="text-xl font-display font-bold text-foreground">
-                    {member.name}
-                  </h3>
-                  <p className="text-accent font-medium mb-3">{member.position}</p>
-                  <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
-                  <div className="flex justify-center gap-3">
-                    <a
-                      href="#"
-                      className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="#"
-                      className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      <Mail className="h-4 w-4" />
-                    </a>
+              ))}
+            </div>
+          ) : leadership.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {leadership.map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all group"
+                >
+                  <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
+                    {member.image_url ? (
+                      <img 
+                        src={member.image_url} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img 
+                        src={fallbackImages[index % fallbackImages.length]} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="text-center">
+                    <h3 className="text-xl font-display font-bold text-foreground">
+                      {member.name}
+                    </h3>
+                    <p className="text-accent font-medium mb-3">{member.position}</p>
+                    <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    <div className="flex justify-center gap-3">
+                      {member.linkedin_url && (
+                        <a
+                          href={member.linkedin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          <Linkedin className="h-4 w-4" />
+                        </a>
+                      )}
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          <Mail className="h-4 w-4" />
+                        </a>
+                      )}
+                      {!member.linkedin_url && !member.email && (
+                        <>
+                          <span className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground">
+                            <Linkedin className="h-4 w-4" />
+                          </span>
+                          <span className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground">
+                            <Mail className="h-4 w-4" />
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>No leadership team members added yet.</p>
+              <p className="text-sm mt-2">Add team members in the admin panel and mark them as "Leadership".</p>
+            </div>
+          )}
         </div>
       </section>
 
