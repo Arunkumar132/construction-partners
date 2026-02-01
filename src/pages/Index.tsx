@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import heroImage from "@/assets/hero-construction.jpg";
 import serviceConstruction from "@/assets/service-construction.jpg";
 import serviceInterior from "@/assets/service-interior.jpg";
@@ -217,6 +218,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* CTA Section */}
       <section className="section-padding bg-primary">
