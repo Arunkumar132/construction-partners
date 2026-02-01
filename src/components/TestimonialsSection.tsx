@@ -1,0 +1,72 @@
+import { useTestimonials } from "@/hooks/useTestimonials";
+import SectionHeading from "@/components/SectionHeading";
+import TestimonialCard from "@/components/TestimonialCard";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const TestimonialsSection = () => {
+  const { testimonials, isLoading } = useTestimonials();
+
+  if (isLoading) {
+    return (
+      <section className="section-padding bg-muted relative overflow-hidden">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Testimonials"
+            title="Hear from our happy customers"
+          />
+          <div className="grid md:grid-cols-2 gap-8">
+            {[1, 2].map((i) => (
+              <div key={i} className="bg-card rounded-xl overflow-hidden">
+                <Skeleton className="aspect-[4/3]" />
+                <div className="p-6 space-y-3">
+                  <Skeleton className="h-6 w-32 mx-auto" />
+                  <Skeleton className="h-4 w-20 mx-auto" />
+                  <Skeleton className="h-16 w-full" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (testimonials.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="section-padding bg-muted relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+      </div>
+
+      <div className="container-custom relative z-10">
+        <SectionHeading
+          badge="Testimonials"
+          title="Hear from our happy customers"
+          subtitle="Real stories from clients who trusted us with their construction dreams"
+        />
+        
+        <div className="grid md:grid-cols-2 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={testimonial.id}
+              clientName={testimonial.client_name}
+              location={testimonial.location || undefined}
+              testimonial={testimonial.testimonial}
+              projectImageUrl={testimonial.project_image_url || undefined}
+              clientImageUrl={testimonial.client_image_url || undefined}
+              videoUrl={testimonial.video_url || undefined}
+              index={index}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TestimonialsSection;
