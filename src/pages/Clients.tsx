@@ -4,64 +4,26 @@ import { ArrowRight, Building2, Quote } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
-
-const clients = [
-  { name: "Apex Developers", logo: "🏗️" },
-  { name: "Metro Properties", logo: "🏢" },
-  { name: "GreenBuild Corp", logo: "🌿" },
-  { name: "Urban Spaces", logo: "🏙️" },
-  { name: "Premier Estates", logo: "🏠" },
-  { name: "Vista Holdings", logo: "🌆" },
-  { name: "Capital Realty", logo: "💎" },
-  { name: "Horizon Group", logo: "🌅" },
-];
-
-const collaborations = [
-  {
-    name: "City Mall Complex",
-    client: "Metro Properties",
-    description: "A 500,000 sq ft retail and entertainment complex featuring modern architecture and sustainable design.",
-    year: "2023",
-  },
-  {
-    name: "Sunrise Residences",
-    client: "Apex Developers",
-    description: "Luxury residential towers with 200+ premium apartments and world-class amenities.",
-    year: "2023",
-  },
-  {
-    name: "TechPark Office Campus",
-    client: "Vista Holdings",
-    description: "State-of-the-art corporate campus with LEED certification and smart building features.",
-    year: "2022",
-  },
-  {
-    name: "Harbor View Hotel",
-    client: "Premier Estates",
-    description: "5-star luxury hotel with 350 rooms, conference facilities, and waterfront dining.",
-    year: "2022",
-  },
-];
-
-const testimonials = [
-  {
-    quote: "BuildCraft delivered our project ahead of schedule and exceeded all our expectations. Their attention to detail is unmatched.",
-    author: "Michael Chen",
-    position: "CEO, Apex Developers",
-  },
-  {
-    quote: "Working with BuildCraft was a seamless experience. Their team's professionalism and expertise made our vision a reality.",
-    author: "Sarah Johnson",
-    position: "Director, Metro Properties",
-  },
-  {
-    quote: "From design to delivery, BuildCraft demonstrated excellence at every step. Highly recommended for any construction project.",
-    author: "David Park",
-    position: "Partner, Vista Holdings",
-  },
-];
+import { useProjects } from "@/hooks/useProjects";
+import { useTestimonials } from "@/hooks/useTestimonials";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useMemo } from "react";
 
 const Clients = () => {
+  const { projects, isLoading: projectsLoading } = useProjects();
+  const { testimonials, isLoading: testimonialsLoading } = useTestimonials();
+
+  // Extract unique clients from projects
+  const uniqueClients = useMemo(() => {
+    const clientSet = new Set<string>();
+    projects.forEach((project) => {
+      if (project.client) {
+        clientSet.add(project.client);
+      }
+    });
+    return Array.from(clientSet);
+  }, [projects]);
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -96,21 +58,31 @@ const Clients = () => {
             title="Companies We've Worked With"
             subtitle="Building lasting relationships with industry leaders"
           />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {clients.map((client, index) => (
-              <motion.div
-                key={client.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow flex flex-col items-center justify-center"
-              >
-                <span className="text-5xl mb-4">{client.logo}</span>
-                <span className="font-semibold text-foreground text-center">{client.name}</span>
-              </motion.div>
-            ))}
-          </div>
+          {projectsLoading ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map((i) => (
+                <Skeleton key={i} className="h-32 rounded-xl" />
+              ))}
+            </div>
+          ) : uniqueClients.length === 0 ? (
+            <p className="text-center text-muted-foreground">No clients yet. Add projects with client names in the admin dashboard.</p>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {uniqueClients.map((client, index) => (
+                <motion.div
+                  key={client}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow flex flex-col items-center justify-center"
+                >
+                  <Building2 className="h-12 w-12 text-accent mb-4" />
+                  <span className="font-semibold text-foreground text-center">{client}</span>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -122,30 +94,44 @@ const Clients = () => {
             title="Notable Collaborations"
             subtitle="Projects that showcase our partnership excellence"
           />
-          <div className="grid md:grid-cols-2 gap-8">
-            {collaborations.map((project, index) => (
-              <motion.div
-                key={project.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card rounded-xl p-8 shadow-card"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
-                    {project.year}
-                  </span>
-                  <Building2 className="h-6 w-6 text-muted-foreground" />
-                </div>
-                <h3 className="text-2xl font-display font-bold text-foreground mb-2">
-                  {project.name}
-                </h3>
-                <p className="text-accent font-medium mb-3">{project.client}</p>
-                <p className="text-muted-foreground">{project.description}</p>
-              </motion.div>
-            ))}
-          </div>
+          {projectsLoading ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {[1, 2].map((i) => (
+                <Skeleton key={i} className="h-48 rounded-xl" />
+              ))}
+            </div>
+          ) : projects.length === 0 ? (
+            <p className="text-center text-muted-foreground">No projects yet. Add projects in the admin dashboard.</p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card rounded-xl p-8 shadow-card"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
+                      {project.completed_at ? new Date(project.completed_at).getFullYear() : "Ongoing"}
+                    </span>
+                    <Building2 className="h-6 w-6 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  {project.client && (
+                    <p className="text-accent font-medium mb-3">{project.client}</p>
+                  )}
+                  {project.description && (
+                    <p className="text-muted-foreground">{project.description}</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -158,29 +144,41 @@ const Clients = () => {
             subtitle="Hear from the partners who trust us"
             light
           />
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.author}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10"
-              >
-                <Quote className="h-10 w-10 text-accent mb-4" />
-                <p className="text-primary-foreground/90 mb-6 italic leading-relaxed">
-                  "{testimonial.quote}"
-                </p>
-                <div>
-                  <p className="font-display font-bold text-primary-foreground">
-                    {testimonial.author}
+          {testimonialsLoading ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <Skeleton key={i} className="h-48 rounded-xl" />
+              ))}
+            </div>
+          ) : testimonials.length === 0 ? (
+            <p className="text-center text-primary-foreground/60">No testimonials yet. Add testimonials in the admin dashboard.</p>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10"
+                >
+                  <Quote className="h-10 w-10 text-accent mb-4" />
+                  <p className="text-primary-foreground/90 mb-6 italic leading-relaxed">
+                    "{testimonial.testimonial}"
                   </p>
-                  <p className="text-primary-foreground/60 text-sm">{testimonial.position}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  <div>
+                    <p className="font-display font-bold text-primary-foreground">
+                      {testimonial.client_name}
+                    </p>
+                    {testimonial.location && (
+                      <p className="text-primary-foreground/60 text-sm">{testimonial.location}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
