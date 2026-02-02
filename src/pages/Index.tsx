@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import { useDynamicStats } from "@/hooks/useDynamicStats";
 import heroImage from "@/assets/hero-construction.jpg";
 import serviceConstruction from "@/assets/service-construction.jpg";
 import serviceInterior from "@/assets/service-interior.jpg";
@@ -42,6 +43,8 @@ const reasons = [
 ];
 
 const Index = () => {
+  const { data: stats } = useDynamicStats();
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -92,9 +95,9 @@ const Index = () => {
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <StatCard number="7" suffix="+" label="Years Experience" delay={0} />
-            <StatCard number="500" suffix="+" label="Projects Completed" delay={0.1} />
-            <StatCard number="150" suffix="+" label="Happy Clients" delay={0.2} />
-            <StatCard number="50" suffix="+" label="Expert Team" delay={0.3} />
+            <StatCard number={String(stats?.projectsCount || 0)} suffix="+" label="Projects Completed" delay={0.1} />
+            <StatCard number={String(stats?.clientsCount || 0)} suffix="+" label="Happy Clients" delay={0.2} />
+            <StatCard number={String(stats?.teamCount || 0)} suffix="+" label="Expert Team" delay={0.3} />
           </div>
         </div>
       </section>
@@ -211,7 +214,7 @@ const Index = () => {
                 <div className="bg-primary rounded-xl p-6 text-primary-foreground">
                   <Users className="h-10 w-10 mb-4" />
                   <h4 className="font-display font-bold text-lg">Expert Team</h4>
-                  <p className="text-sm opacity-70">50+ professionals</p>
+                  <p className="text-sm opacity-70">{stats?.teamCount || 0}+ professionals</p>
                 </div>
               </div>
             </motion.div>

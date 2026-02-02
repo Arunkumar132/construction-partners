@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import ImageUpload from "./ImageUpload";
 import type { Database } from "@/integrations/supabase/types";
 
 type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
@@ -105,27 +106,19 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="project_image_url">Project Image URL</Label>
-        <Input
-          id="project_image_url"
-          type="url"
-          placeholder="https://..."
-          value={formData.project_image_url}
-          onChange={(e) => setFormData({ ...formData, project_image_url: e.target.value })}
-        />
-      </div>
+      <ImageUpload
+        label="Project Image"
+        value={formData.project_image_url}
+        onChange={(url) => setFormData({ ...formData, project_image_url: url })}
+        folder="testimonials"
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="client_image_url">Client Photo URL</Label>
-        <Input
-          id="client_image_url"
-          type="url"
-          placeholder="https://..."
-          value={formData.client_image_url}
-          onChange={(e) => setFormData({ ...formData, client_image_url: e.target.value })}
-        />
-      </div>
+      <ImageUpload
+        label="Client Photo"
+        value={formData.client_image_url}
+        onChange={(url) => setFormData({ ...formData, client_image_url: url })}
+        folder="testimonials"
+      />
 
       <div className="space-y-2">
         <Label htmlFor="video_url">Video URL (optional)</Label>
