@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import ImageUpload from "./ImageUpload";
 import type { Database } from "@/integrations/supabase/types";
 
 type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
@@ -90,16 +91,12 @@ const TeamMemberForm = ({ member, onSuccess, onCancel }: TeamMemberFormProps) =>
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="image_url">Image URL</Label>
-        <Input
-          id="image_url"
-          type="url"
-          value={formData.image_url}
-          onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-          placeholder="https://example.com/image.jpg"
-        />
-      </div>
+      <ImageUpload
+        label="Profile Image"
+        value={formData.image_url}
+        onChange={(url) => setFormData({ ...formData, image_url: url })}
+        folder="team"
+      />
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
