@@ -50,16 +50,14 @@ const TestimonialsSection = () => {
           subtitle="Real stories from clients who trusted us with their construction dreams"
         />
         
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.id}
               clientName={testimonial.client_name}
               location={testimonial.location || undefined}
               testimonial={testimonial.testimonial}
-              projectImageUrl={testimonial.project_image_url || undefined}
               clientImageUrl={testimonial.client_image_url || undefined}
-              videoUrl={testimonial.video_url || undefined}
               index={index}
             />
           ))}
