@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      clients: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          logo_url: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          logo_url?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          logo_url?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      collaborations: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          message: string | null
+          name: string
+          updated_at: string
+          year: number | null
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          message?: string | null
+          name: string
+          updated_at?: string
+          year?: number | null
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          message?: string | null
+          name?: string
+          updated_at?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           category: string | null
@@ -110,10 +167,8 @@ export type Database = {
           id: string
           is_featured: boolean | null
           location: string | null
-          project_image_url: string | null
           testimonial: string
           updated_at: string
-          video_url: string | null
         }
         Insert: {
           client_image_url?: string | null
@@ -123,10 +178,8 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           location?: string | null
-          project_image_url?: string | null
           testimonial: string
           updated_at?: string
-          video_url?: string | null
         }
         Update: {
           client_image_url?: string | null
@@ -136,10 +189,8 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           location?: string | null
-          project_image_url?: string | null
           testimonial?: string
           updated_at?: string
-          video_url?: string | null
         }
         Relationships: []
       }

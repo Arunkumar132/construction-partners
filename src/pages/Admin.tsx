@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home } from "lucide-react";
+import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,9 +11,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { useProjects } from "@/hooks/useProjects";
 import { useTestimonials } from "@/hooks/useTestimonials";
+import { useClients, Client } from "@/hooks/useClients";
+import { useCollaborations, Collaboration } from "@/hooks/useCollaborations";
 import TeamMemberForm from "@/components/admin/TeamMemberForm";
 import ProjectForm from "@/components/admin/ProjectForm";
 import TestimonialForm from "@/components/admin/TestimonialForm";
+import ClientForm from "@/components/admin/ClientForm";
+import CollaborationForm from "@/components/admin/CollaborationForm";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/integrations/supabase/types";
@@ -27,14 +31,20 @@ const Admin = () => {
   const { teamMembers, refetch: refetchTeam } = useTeamMembers();
   const { projects, refetch: refetchProjects } = useProjects();
   const { testimonials, refetch: refetchTestimonials } = useTestimonials();
+  const { clients, refetch: refetchClients } = useClients();
+  const { collaborations, refetch: refetchCollaborations } = useCollaborations();
   const { toast } = useToast();
 
   const [showTeamDialog, setShowTeamDialog] = useState(false);
   const [showProjectDialog, setShowProjectDialog] = useState(false);
   const [showTestimonialDialog, setShowTestimonialDialog] = useState(false);
+  const [showClientDialog, setShowClientDialog] = useState(false);
+  const [showCollaborationDialog, setShowCollaborationDialog] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [editingCollaboration, setEditingCollaboration] = useState<Collaboration | null>(null);
 
   if (isLoading) {
     return (
@@ -95,6 +105,26 @@ const Admin = () => {
     }
   };
 
+  const handleDeleteClient = async (id: string) => {
+    const { error } = await supabase.from("clients").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Deleted", description: "Client removed successfully." });
+      refetchClients();
+    }
+  };
+
+  const handleDeleteCollaboration = async (id: string) => {
+    const { error } = await supabase.from("collaborations").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Deleted", description: "Collaboration removed successfully." });
+      refetchCollaborations();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-secondary">
       {/* Header */}
@@ -123,18 +153,26 @@ const Admin = () => {
           transition={{ duration: 0.5 }}
         >
           <Tabs defaultValue="team" className="space-y-6">
-            <TabsList className="grid w-full max-w-xl grid-cols-3">
+            <TabsList className="grid w-full max-w-3xl grid-cols-5">
               <TabsTrigger value="team" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
-                Team
+                <span className="hidden sm:inline">Team</span>
               </TabsTrigger>
               <TabsTrigger value="projects" className="flex items-center gap-2">
                 <FolderOpen className="h-4 w-4" />
-                Projects
+                <span className="hidden sm:inline">Projects</span>
+              </TabsTrigger>
+              <TabsTrigger value="clients" className="flex items-center gap-2">
+                <Building2 className="h-4 w-4" />
+                <span className="hidden sm:inline">Clients</span>
+              </TabsTrigger>
+              <TabsTrigger value="collaborations" className="flex items-center gap-2">
+                <Handshake className="h-4 w-4" />
+                <span className="hidden sm:inline">Collaborations</span>
               </TabsTrigger>
               <TabsTrigger value="testimonials" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
-                Testimonials
+                <span className="hidden sm:inline">Testimonials</span>
               </TabsTrigger>
             </TabsList>
 
@@ -326,6 +364,172 @@ const Admin = () => {
               </Card>
             </TabsContent>
 
+            {/* Clients Tab */}
+            <TabsContent value="clients">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Clients ({clients.length})</CardTitle>
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    onClick={() => {
+                      setEditingClient(null);
+                      setShowClientDialog(true);
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Client
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  {clients.length === 0 ? (
+                    <p className="text-muted-foreground text-center py-8">
+                      No clients yet. Add your first client!
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {clients.map((client) => (
+                        <div
+                          key={client.id}
+                          className="flex items-center gap-4 p-4 bg-background rounded-lg border"
+                        >
+                          <div className="w-16 h-12 rounded bg-muted overflow-hidden shrink-0">
+                            {client.logo_url ? (
+                              <img
+                                src={client.logo_url}
+                                alt={client.name}
+                                className="w-full h-full object-contain"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                                <Building2 className="h-6 w-6" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold truncate">{client.name}</p>
+                          </div>
+                          <div className="flex gap-2 shrink-0">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setEditingClient(client);
+                                setShowClientDialog(true);
+                              }}
+                            >
+                              <Edit2 className="h-4 w-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="icon" className="text-destructive">
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete client?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete "{client.name}".
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDeleteClient(client.id)}>
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Collaborations Tab */}
+            <TabsContent value="collaborations">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Collaborations ({collaborations.length})</CardTitle>
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    onClick={() => {
+                      setEditingCollaboration(null);
+                      setShowCollaborationDialog(true);
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Collaboration
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  {collaborations.length === 0 ? (
+                    <p className="text-muted-foreground text-center py-8">
+                      No collaborations yet. Add your first collaboration!
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {collaborations.map((collab) => (
+                        <div
+                          key={collab.id}
+                          className="flex items-center gap-4 p-4 bg-background rounded-lg border"
+                        >
+                          <div className="w-12 h-12 rounded bg-muted overflow-hidden shrink-0 flex items-center justify-center text-muted-foreground">
+                            <Handshake className="h-6 w-6" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold truncate">{collab.name}</p>
+                            <p className="text-sm text-muted-foreground truncate">
+                              {collab.year && <span className="text-accent">{collab.year}</span>}
+                              {collab.message && <span className="ml-2">• {collab.message}</span>}
+                            </p>
+                          </div>
+                          <div className="flex gap-2 shrink-0">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setEditingCollaboration(collab);
+                                setShowCollaborationDialog(true);
+                              }}
+                            >
+                              <Edit2 className="h-4 w-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="icon" className="text-destructive">
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete collaboration?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete "{collab.name}".
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDeleteCollaboration(collab.id)}>
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
             {/* Testimonials Tab */}
             <TabsContent value="testimonials">
               <Card>
@@ -355,10 +559,10 @@ const Admin = () => {
                           key={testimonial.id}
                           className="flex items-center gap-4 p-4 bg-background rounded-lg border"
                         >
-                          <div className="w-16 h-12 rounded bg-muted overflow-hidden shrink-0">
-                            {testimonial.project_image_url ? (
+                          <div className="w-12 h-12 rounded-full bg-muted overflow-hidden shrink-0">
+                            {testimonial.client_image_url ? (
                               <img
-                                src={testimonial.project_image_url}
+                                src={testimonial.client_image_url}
                                 alt={testimonial.client_name}
                                 className="w-full h-full object-cover"
                               />
@@ -457,6 +661,44 @@ const Admin = () => {
               refetchProjects();
             }}
             onCancel={() => setShowProjectDialog(false)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Client Dialog */}
+      <Dialog open={showClientDialog} onOpenChange={setShowClientDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {editingClient ? "Edit Client" : "Add Client"}
+            </DialogTitle>
+          </DialogHeader>
+          <ClientForm
+            client={editingClient}
+            onSuccess={() => {
+              setShowClientDialog(false);
+              refetchClients();
+            }}
+            onCancel={() => setShowClientDialog(false)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Collaboration Dialog */}
+      <Dialog open={showCollaborationDialog} onOpenChange={setShowCollaborationDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {editingCollaboration ? "Edit Collaboration" : "Add Collaboration"}
+            </DialogTitle>
+          </DialogHeader>
+          <CollaborationForm
+            collaboration={editingCollaboration}
+            onSuccess={() => {
+              setShowCollaborationDialog(false);
+              refetchCollaborations();
+            }}
+            onCancel={() => setShowCollaborationDialog(false)}
           />
         </DialogContent>
       </Dialog>

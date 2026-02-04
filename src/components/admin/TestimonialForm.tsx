@@ -24,9 +24,7 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
     client_name: testimonial?.client_name || "",
     location: testimonial?.location || "",
     testimonial: testimonial?.testimonial || "",
-    project_image_url: testimonial?.project_image_url || "",
     client_image_url: testimonial?.client_image_url || "",
-    video_url: testimonial?.video_url || "",
     display_order: testimonial?.display_order || 0,
     is_featured: testimonial?.is_featured || false,
   });
@@ -39,9 +37,7 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
       client_name: formData.client_name,
       location: formData.location || null,
       testimonial: formData.testimonial,
-      project_image_url: formData.project_image_url || null,
       client_image_url: formData.client_image_url || null,
-      video_url: formData.video_url || null,
       display_order: formData.display_order,
       is_featured: formData.is_featured,
     };
@@ -107,29 +103,11 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
       </div>
 
       <ImageUpload
-        label="Project Image"
-        value={formData.project_image_url}
-        onChange={(url) => setFormData({ ...formData, project_image_url: url })}
-        folder="testimonials"
-      />
-
-      <ImageUpload
         label="Client Photo"
         value={formData.client_image_url}
         onChange={(url) => setFormData({ ...formData, client_image_url: url })}
         folder="testimonials"
       />
-
-      <div className="space-y-2">
-        <Label htmlFor="video_url">Video URL (optional)</Label>
-        <Input
-          id="video_url"
-          type="url"
-          placeholder="https://youtube.com/watch?v=..."
-          value={formData.video_url}
-          onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
-        />
-      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">

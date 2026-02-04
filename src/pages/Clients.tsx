@@ -1,28 +1,18 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Quote } from "lucide-react";
+import { ArrowRight, Building2, Quote, Handshake } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
-import { useProjects } from "@/hooks/useProjects";
+import { useClients } from "@/hooks/useClients";
+import { useCollaborations } from "@/hooks/useCollaborations";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useMemo } from "react";
 
 const Clients = () => {
-  const { projects, isLoading: projectsLoading } = useProjects();
+  const { clients, isLoading: clientsLoading } = useClients();
+  const { collaborations, isLoading: collaborationsLoading } = useCollaborations();
   const { testimonials, isLoading: testimonialsLoading } = useTestimonials();
-
-  // Extract unique clients from projects
-  const uniqueClients = useMemo(() => {
-    const clientSet = new Set<string>();
-    projects.forEach((project) => {
-      if (project.client) {
-        clientSet.add(project.client);
-      }
-    });
-    return Array.from(clientSet);
-  }, [projects]);
 
   return (
     <Layout>
@@ -58,27 +48,35 @@ const Clients = () => {
             title="Companies We've Worked With"
             subtitle="Building lasting relationships with industry leaders"
           />
-          {projectsLoading ? (
+          {clientsLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[1, 2, 3, 4].map((i) => (
                 <Skeleton key={i} className="h-32 rounded-xl" />
               ))}
             </div>
-          ) : uniqueClients.length === 0 ? (
-            <p className="text-center text-muted-foreground">No clients yet. Add projects with client names in the admin dashboard.</p>
+          ) : clients.length === 0 ? (
+            <p className="text-center text-muted-foreground">No clients yet. Add clients in the admin dashboard.</p>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {uniqueClients.map((client, index) => (
+              {clients.map((client, index) => (
                 <motion.div
-                  key={client}
+                  key={client.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow flex flex-col items-center justify-center"
                 >
-                  <Building2 className="h-12 w-12 text-accent mb-4" />
-                  <span className="font-semibold text-foreground text-center">{client}</span>
+                  {client.logo_url ? (
+                    <img 
+                      src={client.logo_url} 
+                      alt={client.name} 
+                      className="h-16 w-auto object-contain mb-4"
+                    />
+                  ) : (
+                    <Building2 className="h-12 w-12 text-accent mb-4" />
+                  )}
+                  <span className="font-semibold text-foreground text-center">{client.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -86,7 +84,7 @@ const Clients = () => {
         </div>
       </section>
 
-      {/* Featured Collaborations */}
+      {/* Collaborations */}
       <section className="section-padding bg-secondary">
         <div className="container-custom">
           <SectionHeading
@@ -94,19 +92,19 @@ const Clients = () => {
             title="Notable Collaborations"
             subtitle="Projects that showcase our partnership excellence"
           />
-          {projectsLoading ? (
+          {collaborationsLoading ? (
             <div className="grid md:grid-cols-2 gap-8">
               {[1, 2].map((i) => (
                 <Skeleton key={i} className="h-48 rounded-xl" />
               ))}
             </div>
-          ) : projects.length === 0 ? (
-            <p className="text-center text-muted-foreground">No projects yet. Add projects in the admin dashboard.</p>
+          ) : collaborations.length === 0 ? (
+            <p className="text-center text-muted-foreground">No collaborations yet. Add collaborations in the admin dashboard.</p>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
+              {collaborations.map((collab, index) => (
                 <motion.div
-                  key={project.id}
+                  key={collab.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -114,19 +112,18 @@ const Clients = () => {
                   className="bg-card rounded-xl p-8 shadow-card"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
-                      {project.completed_at ? new Date(project.completed_at).getFullYear() : "Ongoing"}
-                    </span>
-                    <Building2 className="h-6 w-6 text-muted-foreground" />
+                    {collab.year && (
+                      <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
+                        {collab.year}
+                      </span>
+                    )}
+                    <Handshake className="h-6 w-6 text-muted-foreground" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground mb-2">
-                    {project.title}
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-3">
+                    {collab.name}
                   </h3>
-                  {project.client && (
-                    <p className="text-accent font-medium mb-3">{project.client}</p>
-                  )}
-                  {project.description && (
-                    <p className="text-muted-foreground">{project.description}</p>
+                  {collab.message && (
+                    <p className="text-muted-foreground">{collab.message}</p>
                   )}
                 </motion.div>
               ))}
@@ -167,13 +164,22 @@ const Clients = () => {
                   <p className="text-primary-foreground/90 mb-6 italic leading-relaxed">
                     "{testimonial.testimonial}"
                   </p>
-                  <div>
-                    <p className="font-display font-bold text-primary-foreground">
-                      {testimonial.client_name}
-                    </p>
-                    {testimonial.location && (
-                      <p className="text-primary-foreground/60 text-sm">{testimonial.location}</p>
+                  <div className="flex items-center gap-3">
+                    {testimonial.client_image_url && (
+                      <img 
+                        src={testimonial.client_image_url} 
+                        alt={testimonial.client_name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
                     )}
+                    <div>
+                      <p className="font-display font-bold text-primary-foreground">
+                        {testimonial.client_name}
+                      </p>
+                      {testimonial.location && (
+                        <p className="text-primary-foreground/60 text-sm">{testimonial.location}</p>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               ))}
