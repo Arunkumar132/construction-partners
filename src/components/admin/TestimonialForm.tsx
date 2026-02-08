@@ -25,6 +25,7 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
     location: testimonial?.location || "",
     testimonial: testimonial?.testimonial || "",
     client_image_url: testimonial?.client_image_url || "",
+    video_url: testimonial?.video_url || "",
     display_order: testimonial?.display_order || 0,
     is_featured: testimonial?.is_featured || false,
   });
@@ -38,6 +39,7 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
       location: formData.location || null,
       testimonial: formData.testimonial,
       client_image_url: formData.client_image_url || null,
+      video_url: formData.video_url || null,
       display_order: formData.display_order,
       is_featured: formData.is_featured,
     };
@@ -108,6 +110,19 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
         onChange={(url) => setFormData({ ...formData, client_image_url: url })}
         folder="testimonials"
       />
+
+      <div className="space-y-2">
+        <Label htmlFor="video_url">YouTube Video URL</Label>
+        <Input
+          id="video_url"
+          placeholder="https://www.youtube.com/watch?v=..."
+          value={formData.video_url}
+          onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
+        />
+        <p className="text-xs text-muted-foreground">
+          When clicked, the testimonial will redirect to this YouTube video.
+        </p>
+      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">

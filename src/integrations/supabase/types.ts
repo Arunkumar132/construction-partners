@@ -46,6 +46,7 @@ export type Database = {
           created_at: string
           display_order: number | null
           id: string
+          image_url: string | null
           message: string | null
           name: string
           updated_at: string
@@ -55,6 +56,7 @@ export type Database = {
           created_at?: string
           display_order?: number | null
           id?: string
+          image_url?: string | null
           message?: string | null
           name: string
           updated_at?: string
@@ -64,6 +66,7 @@ export type Database = {
           created_at?: string
           display_order?: number | null
           id?: string
+          image_url?: string | null
           message?: string | null
           name?: string
           updated_at?: string
@@ -169,6 +172,7 @@ export type Database = {
           location: string | null
           testimonial: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           client_image_url?: string | null
@@ -180,6 +184,7 @@ export type Database = {
           location?: string | null
           testimonial: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           client_image_url?: string | null
@@ -191,6 +196,7 @@ export type Database = {
           location?: string | null
           testimonial?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }

@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import { useDynamicStats } from "@/hooks/useDynamicStats";
-import heroImage from "@/assets/hero-construction.jpg";
-import serviceConstruction from "@/assets/service-construction.jpg";
-import serviceInterior from "@/assets/service-interior.jpg";
-import serviceExterior from "@/assets/service-exterior.jpg";
+import serviceConstruction from "@/assets/service-construction.avif";
+import serviceInterior from "@/assets/service-interior.avif";
+import serviceExterior from "@/assets/service-exterior.avif";
 
 const services = [
   {
@@ -18,18 +18,21 @@ const services = [
     title: "Construction",
     description: "Complete construction services from foundation to finishing, delivering quality structures on time.",
     image: serviceConstruction,
+    link: "/services/construction",
   },
   {
     icon: Paintbrush,
     title: "Interior Design",
     description: "Transform spaces with our expert interior design services, blending aesthetics with functionality.",
     image: serviceInterior,
+    link: "/services/interior",
   },
   {
     icon: Home,
     title: "Exterior Design",
     description: "Create stunning facades and outdoor spaces that make lasting impressions.",
     image: serviceExterior,
+    link: "/services/exterior",
   },
 ];
 
@@ -49,14 +52,7 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Construction site at golden hour"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-overlay-gradient" />
-        </div>
+        <HeroSlideshow />
         <div className="container-custom relative z-10 py-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -72,7 +68,7 @@ const Index = () => {
               <span className="text-gradient-accent block">Landmarks Today</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-primary-foreground/80 max-w-xl">
-              With 7 years of expertise, we transform architectural visions into reality. 
+              With {stats?.yearsExperience || 7} years of expertise, we transform architectural visions into reality. 
               Quality craftsmanship meets innovative design.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -94,9 +90,9 @@ const Index = () => {
       <section className="bg-primary py-16">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatCard number="7" suffix="+" label="Years Experience" delay={0} />
-            <StatCard number={String(stats?.projectsCount || 0)} suffix="+" label="Projects Completed" delay={0.1} />
-            <StatCard number={String(stats?.clientsCount || 0)} suffix="+" label="Happy Clients" delay={0.2} />
+            <StatCard number={String(stats?.yearsExperience || 7)} suffix="+" label="Years Experience" delay={0} />
+            <StatCard number={String(stats?.projectsCount || 31)} suffix="+" label="Projects Completed" delay={0.1} />
+            <StatCard number={String(stats?.clientsCount || 11)} suffix="+" label="Happy Clients" delay={0.2} />
             <StatCard number={String(stats?.teamCount || 0)} suffix="+" label="Expert Team" delay={0.3} />
           </div>
         </div>
@@ -112,37 +108,35 @@ const Index = () => {
           />
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                    <service.icon className="h-6 w-6 text-accent" />
+              <Link key={service.title} to={service.link}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <h3 className="text-xl font-display font-bold text-foreground mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground">{service.description}</p>
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center mt-4 text-accent font-semibold hover:gap-2 transition-all"
-                  >
-                    Learn More <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </div>
-              </motion.div>
+                  <div className="p-6">
+                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                      <service.icon className="h-6 w-6 text-accent" />
+                    </div>
+                    <h3 className="text-xl font-display font-bold text-foreground mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted-foreground">{service.description}</p>
+                    <span className="inline-flex items-center mt-4 text-accent font-semibold group-hover:gap-2 transition-all">
+                      Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                    </span>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>

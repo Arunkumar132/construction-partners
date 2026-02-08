@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Building, Paintbrush, Home, CheckCircle, Hammer, Ruler, HardHat } from "lucide-react";
+import { ArrowRight, Building, Paintbrush, Home, CheckCircle, Ruler, HardHat, Hammer, Briefcase, Truck } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
-import serviceConstruction from "@/assets/service-construction.jpg";
-import serviceInterior from "@/assets/service-interior.jpg";
-import serviceExterior from "@/assets/service-exterior.jpg";
+import serviceConstruction from "@/assets/service-construction.avif";
+import serviceInterior from "@/assets/service-interior.avif";
+import serviceExterior from "@/assets/service-exterior.avif";
 
 const services = [
   {
@@ -16,6 +16,7 @@ const services = [
     subtitle: "Building Strong Foundations",
     description: "From groundbreaking to completion, we deliver comprehensive construction services that meet the highest standards of quality and safety.",
     image: serviceConstruction,
+    link: "/services/construction",
     features: [
       "Residential Construction",
       "Commercial Buildings",
@@ -32,6 +33,7 @@ const services = [
     subtitle: "Crafting Beautiful Spaces",
     description: "Transform your interiors with our expert design services that blend aesthetics, functionality, and your personal style.",
     image: serviceInterior,
+    link: "/services/interior",
     features: [
       "Space Planning",
       "Custom Furniture Design",
@@ -48,6 +50,7 @@ const services = [
     subtitle: "Creating Lasting Impressions",
     description: "Design stunning facades and outdoor spaces that enhance curb appeal and create memorable first impressions.",
     image: serviceExterior,
+    link: "/services/exterior",
     features: [
       "Facade Design",
       "Landscape Architecture",
@@ -74,13 +77,19 @@ const process = [
   },
   {
     step: "03",
+    icon: Briefcase,
+    title: "Organization",
+    description: "We organize resources, permits, and schedules for seamless execution.",
+  },
+  {
+    step: "04",
     icon: Hammer,
     title: "Construction",
     description: "Expert craftsmen bring your project to life with precision and quality.",
   },
   {
-    step: "04",
-    icon: CheckCircle,
+    step: "05",
+    icon: Truck,
     title: "Delivery",
     description: "Final inspection, handover, and after-sales support for your peace of mind.",
   },
@@ -146,19 +155,19 @@ const Services = () => {
                   ))}
                 </div>
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
-                    Get a Quote
+                  <Link to={service.link}>
+                    View Details
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
-              <div className={index % 2 === 1 ? "lg:order-1" : ""}>
+              <Link to={service.link} className={`group ${index % 2 === 1 ? "lg:order-1" : ""}`}>
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="rounded-xl shadow-card-hover w-full aspect-[4/3] object-cover"
+                  className="rounded-xl shadow-card-hover w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
                 />
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -172,7 +181,7 @@ const Services = () => {
             title="Our Process"
             subtitle="A streamlined approach to deliver excellence at every step"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             {process.map((item, index) => (
               <motion.div
                 key={item.step}
@@ -192,7 +201,7 @@ const Services = () => {
                   <h3 className="text-xl font-display font-bold text-foreground mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground">{item.description}</p>
+                  <p className="text-muted-foreground text-sm">{item.description}</p>
                 </div>
               </motion.div>
             ))}

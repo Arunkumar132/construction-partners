@@ -16,12 +16,14 @@ const TestimonialsSection = () => {
           />
           <div className="grid md:grid-cols-2 gap-8">
             {[1, 2].map((i) => (
-              <div key={i} className="bg-card rounded-xl overflow-hidden">
-                <Skeleton className="aspect-[4/3]" />
-                <div className="p-6 space-y-3">
-                  <Skeleton className="h-6 w-32 mx-auto" />
-                  <Skeleton className="h-4 w-20 mx-auto" />
-                  <Skeleton className="h-16 w-full" />
+              <div key={i} className="bg-card rounded-xl overflow-hidden p-6">
+                <div className="flex gap-4">
+                  <Skeleton className="w-16 h-16 rounded-full shrink-0" />
+                  <div className="flex-1 space-y-3">
+                    <Skeleton className="h-6 w-32" />
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-16 w-full" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -58,6 +60,7 @@ const TestimonialsSection = () => {
               location={testimonial.location || undefined}
               testimonial={testimonial.testimonial}
               clientImageUrl={testimonial.client_image_url || undefined}
+              videoUrl={testimonial.video_url || undefined}
               index={index}
             />
           ))}
