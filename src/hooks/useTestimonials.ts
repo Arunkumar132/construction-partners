@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
-type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
+export type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
 
 export const useTestimonials = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);

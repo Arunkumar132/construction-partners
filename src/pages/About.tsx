@@ -5,8 +5,6 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
-import aboutHero from "@/assets/about-hero.jpg";
-import teamGroup from "@/assets/team-group.jpg";
 
 const achievements = [
   { icon: Award, title: "Best Construction Company 2023", description: "Regional Excellence Award" },
@@ -39,21 +37,13 @@ const About = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40">
-        <div className="absolute inset-0">
-          <img
-            src={aboutHero}
-            alt="BuildCraft Headquarters"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-overlay-gradient" />
-        </div>
+      <section className="relative py-32 md:py-40 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto text-center"
           >
             <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
               About Us
@@ -62,7 +52,7 @@ const About = () => {
               7 Years of Building
               <span className="text-gradient-accent block">Excellence & Trust</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl">
+            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
               Since 2018, we've been transforming the construction landscape with innovation, 
               dedication, and an unwavering commitment to quality.
             </p>
@@ -73,10 +63,10 @@ const About = () => {
       {/* Story Section */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-4xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
@@ -84,9 +74,8 @@ const About = () => {
                 badge="Our Story"
                 title="From Vision to Reality"
                 subtitle="A journey of passion, perseverance, and excellence"
-                centered={false}
               />
-              <div className="space-y-4 text-muted-foreground">
+              <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
                 <p>
                   BuildCraft was founded in 2018 with a simple yet powerful mission: to redefine 
                   construction excellence. What started as a small team of passionate builders has 
@@ -103,18 +92,6 @@ const About = () => {
                   and set new standards in the construction industry.
                 </p>
               </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <img
-                src={teamGroup}
-                alt="BuildCraft Team"
-                className="rounded-xl shadow-card-hover w-full"
-              />
             </motion.div>
           </div>
         </div>

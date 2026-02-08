@@ -6,6 +6,7 @@ export interface Collaboration {
   name: string;
   message: string | null;
   year: number | null;
+  image_url: string | null;
   display_order: number | null;
   created_at: string;
   updated_at: string;

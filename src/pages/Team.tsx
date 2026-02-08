@@ -6,15 +6,6 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
-import teamGroup from "@/assets/team-group.jpg";
-
-// Fallback static images for team members without image_url
-import teamCeo from "@/assets/team-ceo.jpg";
-import teamCoo from "@/assets/team-coo.jpg";
-import teamArchitect from "@/assets/team-architect.jpg";
-import teamEngineer from "@/assets/team-engineer.jpg";
-
-const fallbackImages = [teamCeo, teamCoo, teamArchitect, teamEngineer];
 
 const departments = [
   { name: "Architecture & Design", count: 12 },
@@ -49,26 +40,18 @@ const Team = () => {
   
   // Separate leadership from regular team members
   const leadership = teamMembers.filter(m => m.is_leadership);
-  const hasTeamData = teamMembers.length > 0;
+  const expertTeam = teamMembers.filter(m => !m.is_leadership);
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40">
-        <div className="absolute inset-0">
-          <img
-            src={teamGroup}
-            alt="BuildCraft Team"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-overlay-gradient" />
-        </div>
+      <section className="relative py-32 md:py-40 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto text-center"
           >
             <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
               Our Team
@@ -77,7 +60,7 @@ const Team = () => {
               The People Behind
               <span className="text-gradient-accent block">BuildCraft</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl">
+            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
               A dedicated team of 50+ professionals united by a passion for construction excellence 
               and innovation.
             </p>
@@ -85,8 +68,77 @@ const Team = () => {
         </div>
       </section>
 
+      {/* Expert Team - Now shown first */}
+      {expertTeam.length > 0 && (
+        <section className="section-padding bg-background">
+          <div className="container-custom">
+            <SectionHeading
+              badge="Our Experts"
+              title="Expert Team Members"
+              subtitle="Skilled professionals delivering excellence"
+            />
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {expertTeam.map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all group"
+                >
+                  <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
+                    {member.image_url ? (
+                      <img 
+                        src={member.image_url} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-muted flex items-center justify-center">
+                        <Users className="h-12 w-12 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-xl font-display font-bold text-foreground">
+                      {member.name}
+                    </h3>
+                    <p className="text-accent font-medium mb-3">{member.position}</p>
+                    {member.bio && (
+                      <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    )}
+                    <div className="flex justify-center gap-3">
+                      {member.linkedin_url && (
+                        <a
+                          href={member.linkedin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          <Linkedin className="h-4 w-4" />
+                        </a>
+                      )}
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          <Mail className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Leadership */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-secondary">
         <div className="container-custom">
           <SectionHeading
             badge="Leadership"
@@ -124,11 +176,9 @@ const Team = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <img 
-                        src={fallbackImages[index % fallbackImages.length]} 
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
+                      <div className="w-full h-full bg-muted flex items-center justify-center">
+                        <Users className="h-12 w-12 text-muted-foreground" />
+                      </div>
                     )}
                   </div>
                   <div className="text-center">
@@ -136,7 +186,9 @@ const Team = () => {
                       {member.name}
                     </h3>
                     <p className="text-accent font-medium mb-3">{member.position}</p>
-                    <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    {member.bio && (
+                      <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    )}
                     <div className="flex justify-center gap-3">
                       {member.linkedin_url && (
                         <a
@@ -156,16 +208,6 @@ const Team = () => {
                           <Mail className="h-4 w-4" />
                         </a>
                       )}
-                      {!member.linkedin_url && !member.email && (
-                        <>
-                          <span className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground">
-                            <Linkedin className="h-4 w-4" />
-                          </span>
-                          <span className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground">
-                            <Mail className="h-4 w-4" />
-                          </span>
-                        </>
-                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -182,7 +224,7 @@ const Team = () => {
       </section>
 
       {/* Departments */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Our Departments"

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Quote, Handshake } from "lucide-react";
+import { ArrowRight, Building2, Quote, Handshake, MapPin, Play } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
@@ -13,6 +13,10 @@ const Clients = () => {
   const { clients, isLoading: clientsLoading } = useClients();
   const { collaborations, isLoading: collaborationsLoading } = useCollaborations();
   const { testimonials, isLoading: testimonialsLoading } = useTestimonials();
+
+  const handleVideoClick = (videoUrl: string) => {
+    window.open(videoUrl, "_blank");
+  };
 
   return (
     <Layout>
@@ -109,9 +113,20 @@ const Clients = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-card rounded-xl p-8 shadow-card"
+                  className="bg-card rounded-xl p-8 shadow-card relative"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  {/* Client Image in top right corner */}
+                  {collab.image_url && (
+                    <div className="absolute top-4 right-4">
+                      <img 
+                        src={collab.image_url} 
+                        alt={collab.name}
+                        className="w-16 h-16 rounded-full object-cover border-2 border-accent"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center justify-between mb-4 pr-20">
                     {collab.year && (
                       <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
                         {collab.year}
@@ -158,9 +173,19 @@ const Clients = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10"
+                  onClick={() => testimonial.video_url && handleVideoClick(testimonial.video_url)}
+                  className={`bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10 ${
+                    testimonial.video_url ? "cursor-pointer hover:bg-primary-foreground/10 transition-colors" : ""
+                  }`}
                 >
-                  <Quote className="h-10 w-10 text-accent mb-4" />
+                  <div className="flex items-start justify-between mb-4">
+                    <Quote className="h-10 w-10 text-accent" />
+                    {testimonial.video_url && (
+                      <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                        <Play className="h-5 w-5 text-accent-foreground ml-0.5" />
+                      </div>
+                    )}
+                  </div>
                   <p className="text-primary-foreground/90 mb-6 italic leading-relaxed">
                     "{testimonial.testimonial}"
                   </p>
@@ -169,7 +194,7 @@ const Clients = () => {
                       <img 
                         src={testimonial.client_image_url} 
                         alt={testimonial.client_name}
-                        className="w-10 h-10 rounded-full object-cover"
+                        className="w-12 h-12 rounded-full object-cover"
                       />
                     )}
                     <div>
@@ -177,7 +202,10 @@ const Clients = () => {
                         {testimonial.client_name}
                       </p>
                       {testimonial.location && (
-                        <p className="text-primary-foreground/60 text-sm">{testimonial.location}</p>
+                        <div className="flex items-center gap-1 text-primary-foreground/60 text-sm">
+                          <MapPin className="h-3 w-3" />
+                          <span>{testimonial.location}</span>
+                        </div>
                       )}
                     </div>
                   </div>

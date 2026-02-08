@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import ImageUpload from "./ImageUpload";
 import type { Collaboration } from "@/hooks/useCollaborations";
 
 interface CollaborationFormProps {
@@ -20,6 +21,7 @@ const CollaborationForm = ({ collaboration, onSuccess, onCancel }: Collaboration
     name: collaboration?.name || "",
     message: collaboration?.message || "",
     year: collaboration?.year || new Date().getFullYear(),
+    image_url: collaboration?.image_url || "",
     display_order: collaboration?.display_order || 0,
   });
 
@@ -31,6 +33,7 @@ const CollaborationForm = ({ collaboration, onSuccess, onCancel }: Collaboration
       name: formData.name,
       message: formData.message || null,
       year: formData.year,
+      image_url: formData.image_url || null,
       display_order: formData.display_order,
     };
 
@@ -82,6 +85,13 @@ const CollaborationForm = ({ collaboration, onSuccess, onCancel }: Collaboration
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
         />
       </div>
+
+      <ImageUpload
+        label="Client Image (shown in top right corner)"
+        value={formData.image_url}
+        onChange={(url) => setFormData({ ...formData, image_url: url })}
+        folder="collaborations"
+      />
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
