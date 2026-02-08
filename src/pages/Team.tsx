@@ -6,46 +6,33 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
-
+import { useDynamicStats } from "@/hooks/useDynamicStats";
 const departments = [
-  { name: "Architecture & Design", count: 12 },
-  { name: "Project Management", count: 8 },
-  { name: "Engineering", count: 15 },
-  { name: "Interior Design", count: 6 },
-  { name: "Site Operations", count: 10 },
-  { name: "Quality Assurance", count: 4 },
+  { name: "Architecture & Design", count: 2 },
+  { name: "Project Management", count: 2 },
+  { name: "Engineering", count: 2 },
+  { name: "Interior Design", count: 2 },
+  { name: "Site Operations", count: 2 },
+  { name: "Quality Assurance", count: 2 },
 ];
 
 const values = [
-  {
-    title: "Excellence",
-    description: "We strive for excellence in every detail, from planning to execution.",
-  },
-  {
-    title: "Integrity",
-    description: "Honesty and transparency guide all our interactions and decisions.",
-  },
-  {
-    title: "Innovation",
-    description: "We embrace new technologies and methods to deliver better results.",
-  },
-  {
-    title: "Teamwork",
-    description: "Collaboration is at the heart of everything we accomplish.",
-  },
+  { title: "Excellence", description: "We strive for excellence in every detail, from planning to execution." },
+  { title: "Integrity", description: "Honesty and transparency guide all our interactions and decisions." },
+  { title: "Innovation", description: "We embrace new technologies and methods to deliver better results." },
+  { title: "Teamwork", description: "Collaboration is at the heart of everything we accomplish." },
 ];
 
 const Team = () => {
   const { teamMembers, isLoading } = useTeamMembers();
-  
-  // Separate leadership from regular team members
-  const leadership = teamMembers.filter(m => m.is_leadership);
-  const expertTeam = teamMembers.filter(m => !m.is_leadership);
+
+  const leadership = teamMembers.filter((m) => m.is_leadership);
+  const expertTeam = teamMembers.filter((m) => !m.is_leadership);
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40 bg-hero-gradient">
+      <section className="relative py-20 md:py-24 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -53,31 +40,31 @@ const Team = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-5">
               Our Team
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               The People Behind
-              <span className="text-gradient-accent block">BuildCraft</span>
+              <span className="text-gradient-accent block">Sree Vaari Spaces</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
-              A dedicated team of 50+ professionals united by a passion for construction excellence 
+              A dedicated team of 12+ professionals united by a passion for construction excellence
               and innovation.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Expert Team - Now shown first */}
+      {/* Expert Team */}
       {expertTeam.length > 0 && (
-        <section className="section-padding bg-background">
+        <section className="py-8 md:py-10 bg-background">
           <div className="container-custom">
             <SectionHeading
               badge="Our Experts"
               title="Expert Team Members"
               subtitle="Skilled professionals delivering excellence"
             />
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {expertTeam.map((member, index) => (
                 <motion.div
@@ -90,11 +77,7 @@ const Team = () => {
                 >
                   <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
                     {member.image_url ? (
-                      <img 
-                        src={member.image_url} 
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={member.image_url} alt={member.name} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full bg-muted flex items-center justify-center">
                         <Users className="h-12 w-12 text-muted-foreground" />
@@ -102,13 +85,9 @@ const Team = () => {
                     )}
                   </div>
                   <div className="text-center">
-                    <h3 className="text-xl font-display font-bold text-foreground">
-                      {member.name}
-                    </h3>
+                    <h3 className="text-xl font-display font-bold text-foreground">{member.name}</h3>
                     <p className="text-accent font-medium mb-3">{member.position}</p>
-                    {member.bio && (
-                      <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
-                    )}
+                    {member.bio && <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>}
                     <div className="flex justify-center gap-3">
                       {member.linkedin_url && (
                         <a
@@ -138,14 +117,14 @@ const Team = () => {
       )}
 
       {/* Leadership */}
-      <section className="section-padding bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary">
         <div className="container-custom">
           <SectionHeading
             badge="Leadership"
             title="Meet Our Leaders"
-            subtitle="The visionaries driving BuildCraft forward"
+            subtitle="The visionaries driving Sree Vaari Spaces forward"
           />
-          
+
           {isLoading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[1, 2, 3, 4].map((i) => (
@@ -170,11 +149,7 @@ const Team = () => {
                 >
                   <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
                     {member.image_url ? (
-                      <img 
-                        src={member.image_url} 
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={member.image_url} alt={member.name} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full bg-muted flex items-center justify-center">
                         <Users className="h-12 w-12 text-muted-foreground" />
@@ -182,13 +157,9 @@ const Team = () => {
                     )}
                   </div>
                   <div className="text-center">
-                    <h3 className="text-xl font-display font-bold text-foreground">
-                      {member.name}
-                    </h3>
+                    <h3 className="text-xl font-display font-bold text-foreground">{member.name}</h3>
                     <p className="text-accent font-medium mb-3">{member.position}</p>
-                    {member.bio && (
-                      <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
-                    )}
+                    {member.bio && <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>}
                     <div className="flex justify-center gap-3">
                       {member.linkedin_url && (
                         <a
@@ -214,7 +185,7 @@ const Team = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 text-muted-foreground">
+            <div className="text-center py-10 text-muted-foreground">
               <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p>No leadership team members added yet.</p>
               <p className="text-sm mt-2">Add team members in the admin panel and mark them as "Leadership".</p>
@@ -224,7 +195,7 @@ const Team = () => {
       </section>
 
       {/* Departments */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Our Departments"
@@ -251,8 +222,8 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Our Values */}
-      <section className="section-padding bg-primary">
+      {/* Values */}
+      <section className="py-12 md:py-16 bg-primary">
         <div className="container-custom">
           <SectionHeading
             badge="Our Culture"
@@ -271,9 +242,7 @@ const Team = () => {
                 className="text-center"
               >
                 <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl font-display font-bold text-accent">
-                    {index + 1}
-                  </span>
+                  <span className="text-3xl font-display font-bold text-accent">{index + 1}</span>
                 </div>
                 <h3 className="text-xl font-display font-bold text-primary-foreground mb-2">
                   {value.title}
@@ -285,8 +254,8 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Join Our Team CTA */}
-      <section className="section-padding bg-accent">
+      {/* CTA */}
+      <section className="py-12 md:py-16 bg-accent">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

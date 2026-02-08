@@ -7,24 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import SectionHeading from "@/components/SectionHeading";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    details: ["+1 (234) 567-890", "+1 (234) 567-891"],
-    action: { label: "Call now", href: "tel:+1234567890" },
+    details: ["+91 97993 23394"],
+    action: { label: "Call now", href: "tel:+91 97993 23394" },
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["info@buildcraft.com", "support@buildcraft.com"],
-    action: { label: "Send email", href: "mailto:info@buildcraft.com" },
+    details: ["info@shreevaarispaces.com", "support@shreevaarispaces.com"],
+    action: { label: "Send email", href: "mailto:shreevaarispaces.com" },
   },
   {
     icon: MapPin,
     title: "Address",
-    details: ["123 Construction Avenue", "Building District, City 10001"],
+    details: ["No: 26-A, Bishop Amburose Nagar", "Arasur, Sulur, Coimbatore - 641 407"],
     action: { label: "Get directions", href: "https://maps.google.com" },
   },
   {
@@ -34,6 +35,11 @@ const contactInfo = [
     action: null,
   },
 ];
+
+// ✅ Replace with your actual EmailJS credentials
+const SERVICE_ID = "service_d5vdbav";
+const TEMPLATE_ID = "template_uigtmpe";
+const PUBLIC_KEY = "NV7uXKrH1UHDUqC46";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -47,32 +53,49 @@ const Contact = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message sent successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    setIsSubmitting(false);
+
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        PUBLIC_KEY
+      );
+
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you within 24 hours.",
+      });
+
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Something went wrong!",
+        description: "Please try again or contact us directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -80,14 +103,14 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-5">
               Contact Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               Let's Start Building
               <span className="text-gradient-accent block">Your Dream Project</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80">
+            <p className="mt-5 text-lg text-primary-foreground/80">
               Have a question or ready to start? Reach out to us and let's make it happen.
             </p>
           </motion.div>
@@ -95,7 +118,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-16 bg-background -mt-16 relative z-10">
+      <section className="py-12 bg-background -mt-10 relative z-10">
         <div className="container-custom">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, index) => (
@@ -109,9 +132,7 @@ const Contact = () => {
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
                   <info.icon className="h-6 w-6 text-accent" />
                 </div>
-                <h3 className="text-lg font-display font-bold text-foreground mb-2">
-                  {info.title}
-                </h3>
+                <h3 className="text-lg font-display font-bold text-foreground mb-2">{info.title}</h3>
                 {info.details.map((detail) => (
                   <p key={detail} className="text-muted-foreground text-sm">
                     {detail}
@@ -134,9 +155,9 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="section-padding bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-10">
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -150,7 +171,7 @@ const Contact = () => {
                 subtitle="Fill out the form below and we'll get back to you within 24 hours"
                 centered={false}
               />
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -182,6 +203,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
@@ -212,6 +234,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                     Your Message *
@@ -227,6 +250,7 @@ const Contact = () => {
                     className="bg-card"
                   />
                 </div>
+
                 <Button
                   type="submit"
                   variant="accent"
@@ -234,14 +258,7 @@ const Contact = () => {
                   disabled={isSubmitting}
                   className="w-full sm:w-auto"
                 >
-                  {isSubmitting ? (
-                    <>Sending...</>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="ml-2 h-5 w-5" />
-                    </>
-                  )}
+                  {isSubmitting ? "Sending..." : <>Send Message <Send className="ml-2 h-5 w-5" /></>}
                 </Button>
               </form>
             </motion.div>
@@ -255,7 +272,7 @@ const Contact = () => {
               className="h-[400px] lg:h-auto min-h-[400px] rounded-xl overflow-hidden shadow-card"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30591910525!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30591910525!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -270,14 +287,14 @@ const Contact = () => {
       </section>
 
       {/* Why Contact Us */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Why Choose Us"
             title="What to Expect"
             subtitle="When you reach out to BuildCraft"
           />
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
               { title: "Quick Response", description: "We respond to all inquiries within 24 hours" },
               { title: "Free Consultation", description: "Get expert advice at no cost to you" },
@@ -291,10 +308,8 @@ const Contact = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <CheckCircle className="h-12 w-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-display font-bold text-foreground mb-2">
-                  {item.title}
-                </h3>
+                <CheckCircle className="h-12 w-12 text-accent mx-auto mb-3" />
+                <h3 className="text-xl font-display font-bold text-foreground mb-2">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
               </motion.div>
             ))}

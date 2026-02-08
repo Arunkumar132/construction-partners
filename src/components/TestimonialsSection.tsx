@@ -8,21 +8,21 @@ const TestimonialsSection = () => {
 
   if (isLoading) {
     return (
-      <section className="section-padding bg-muted relative overflow-hidden">
+      <section className="py-10 bg-muted relative overflow-hidden">
         <div className="container-custom">
           <SectionHeading
             badge="Testimonials"
             title="Hear from our happy customers"
           />
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 mt-6">
             {[1, 2].map((i) => (
-              <div key={i} className="bg-card rounded-xl overflow-hidden p-6">
+              <div key={i} className="bg-card rounded-xl overflow-hidden p-5">
                 <div className="flex gap-4">
-                  <Skeleton className="w-16 h-16 rounded-full shrink-0" />
-                  <div className="flex-1 space-y-3">
-                    <Skeleton className="h-6 w-32" />
-                    <Skeleton className="h-4 w-20" />
-                    <Skeleton className="h-16 w-full" />
+                  <Skeleton className="w-14 h-14 rounded-full shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-5 w-28" />
+                    <Skeleton className="h-4 w-16" />
+                    <Skeleton className="h-14 w-full" />
                   </div>
                 </div>
               </div>
@@ -38,11 +38,11 @@ const TestimonialsSection = () => {
   }
 
   return (
-    <section className="section-padding bg-muted relative overflow-hidden">
+    <section className="py-10 bg-muted relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 left-0 w-80 h-80 bg-accent rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -51,8 +51,8 @@ const TestimonialsSection = () => {
           title="Hear from our happy customers"
           subtitle="Real stories from clients who trusted us with their construction dreams"
         />
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.id}

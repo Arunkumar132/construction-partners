@@ -12,11 +12,12 @@ const Projects = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
+      <section className="pt-28 pb-12 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-accent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary rounded-full blur-3xl" />
         </div>
+
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -24,22 +25,22 @@ const Projects = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-accent rounded-full text-sm font-medium mb-6">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-accent rounded-full text-sm font-medium mb-5">
               Our Portfolio
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mb-4">
               Our <span className="text-accent">Projects</span>
             </h1>
             <p className="text-lg text-primary-foreground/80">
               Explore our completed projects showcasing excellence in construction,
-              interior design, and exterior works.
+              interior design and exterior works.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Portfolio"
@@ -60,7 +61,7 @@ const Projects = () => {
               ))}
             </div>
           ) : projects.length === 0 ? (
-            <div className="text-center py-16">
+            <div className="text-center py-10">
               <p className="text-muted-foreground text-lg">
                 No projects available yet. Check back soon!
               </p>
@@ -83,7 +84,7 @@ const Projects = () => {
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      
+
                       {/* Category Badge */}
                       {project.category && (
                         <div className="absolute top-4 left-4">
@@ -109,7 +110,6 @@ const Projects = () => {
                         {project.title}
                       </h3>
 
-                      {/* Meta Info */}
                       <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
                         {project.client && (
                           <div className="flex items-center gap-1">
@@ -140,10 +140,11 @@ const Projects = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-primary relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent rounded-full blur-3xl" />
         </div>
+
         <div className="container-custom relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,7 +155,7 @@ const Projects = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold text-primary-foreground mb-4">
               Ready to Start Your Project?
             </h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
               Let's bring your vision to life. Contact us today for a free consultation.
             </p>
             <Link

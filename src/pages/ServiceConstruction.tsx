@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Building, Home, Factory, Wrench, HardHat, ClipboardCheck } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Building,
+  Home,
+  Factory,
+  Wrench,
+  HardHat,
+  ClipboardCheck,
+} from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
@@ -15,12 +24,12 @@ const features = [
   {
     icon: Building,
     title: "Commercial Buildings",
-    description: "Office spaces, retail outlets, and commercial complexes.",
+    description: "Office spaces, retail outlets and commercial complexes.",
   },
   {
     icon: Factory,
     title: "Industrial Facilities",
-    description: "Warehouses, factories, and industrial infrastructure.",
+    description: "Warehouses, factories and industrial infrastructure.",
   },
   {
     icon: Wrench,
@@ -30,29 +39,29 @@ const features = [
   {
     icon: HardHat,
     title: "Infrastructure Projects",
-    description: "Roads, bridges, and large-scale infrastructure development.",
+    description: "Roads, bridges and large-scale infrastructure development.",
   },
   {
     icon: ClipboardCheck,
     title: "Project Management",
-    description: "End-to-end project oversight ensuring timely delivery.",
+    description: "End to end project oversight ensuring timely delivery.",
   },
 ];
 
 const process = [
-  { step: "01", title: "Consultation", description: "Understanding your requirements and vision." },
-  { step: "02", title: "Planning & Design", description: "Detailed blueprints and architectural plans." },
-  { step: "03", title: "Approvals", description: "Obtaining necessary permits and clearances." },
-  { step: "04", title: "Foundation", description: "Laying strong foundations for your structure." },
-  { step: "05", title: "Construction", description: "Quality construction with skilled craftsmen." },
-  { step: "06", title: "Finishing & Handover", description: "Final inspections and project delivery." },
+  { step: "", title: "Consultation", description: "Understanding your requirements and vision." },
+  { step: "", title: "Planning & Design", description: "Detailed blueprints and architectural plans." },
+  { step: "", title: "Approvals", description: "Obtaining necessary permits and clearances." },
+  { step: "", title: "Foundation", description: "Laying strong foundations for your structure." },
+  { step: "", title: "Construction", description: "Quality construction with skilled craftsmen." },
+  { step: "", title: "Finishing & Handover", description: "Final inspections and project delivery." },
 ];
 
 const ServiceConstruction = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40">
+      <section className="relative py-24 md:py-28 overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={serviceConstruction}
@@ -61,6 +70,7 @@ const ServiceConstruction = () => {
           />
           <div className="absolute inset-0 bg-overlay-gradient" />
         </div>
+
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -70,23 +80,27 @@ const ServiceConstruction = () => {
           >
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 mb-6 transition-colors"
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 mb-4 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to Services
             </Link>
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
+
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-4">
               Construction
             </span>
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               Building Strong
               <span className="text-gradient-accent block">Foundations</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl">
-              From groundbreaking to completion, we deliver comprehensive construction 
+
+            <p className="mt-4 text-lg text-primary-foreground/80 max-w-xl">
+              From groundbreaking to completion, we deliver comprehensive construction
               services that meet the highest standards of quality and safety.
             </p>
-            <Button variant="hero" size="xl" className="mt-8" asChild>
+
+            <Button variant="hero" size="xl" className="mt-6" asChild>
               <Link to="/contact">
                 Get a Quote
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -97,14 +111,15 @@ const ServiceConstruction = () => {
       </section>
 
       {/* Features Grid */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="What We Offer"
             title="Our Construction Services"
             subtitle="Complete construction solutions for every project"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -128,13 +143,14 @@ const ServiceConstruction = () => {
       </section>
 
       {/* Process Section */}
-      <section className="section-padding bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary">
         <div className="container-custom">
           <SectionHeading
             badge="Our Process"
             title="How We Work"
             subtitle="A systematic approach to construction excellence"
           />
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {process.map((item, index) => (
               <motion.div
@@ -160,8 +176,8 @@ const ServiceConstruction = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-primary">
+      {/* CTA Section */}
+      <section className="py-12 md:py-16 bg-primary">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -169,10 +185,10 @@ const ServiceConstruction = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary-foreground mb-3">
               Ready to Build Your Dream?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-6">
               Contact us today for a free consultation and quote.
             </p>
             <Button variant="hero" size="xl" asChild>

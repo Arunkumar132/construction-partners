@@ -21,7 +21,7 @@ const Clients = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -29,7 +29,7 @@ const Clients = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-5">
               Our Clients
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
@@ -37,7 +37,7 @@ const Clients = () => {
               <span className="text-gradient-accent block">Leaders</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80">
-              We've partnered with leading developers and businesses to create iconic structures 
+              We've partnered with leading developers and businesses to create iconic structures
               that stand the test of time.
             </p>
           </motion.div>
@@ -45,7 +45,7 @@ const Clients = () => {
       </section>
 
       {/* Client Logos */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Partners"
@@ -59,7 +59,9 @@ const Clients = () => {
               ))}
             </div>
           ) : clients.length === 0 ? (
-            <p className="text-center text-muted-foreground">No clients yet. Add clients in the admin dashboard.</p>
+            <p className="text-center text-muted-foreground">
+              No clients yet. Add clients in the admin dashboard.
+            </p>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {clients.map((client, index) => (
@@ -72,9 +74,9 @@ const Clients = () => {
                   className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow flex flex-col items-center justify-center"
                 >
                   {client.logo_url ? (
-                    <img 
-                      src={client.logo_url} 
-                      alt={client.name} 
+                    <img
+                      src={client.logo_url}
+                      alt={client.name}
                       className="h-16 w-auto object-contain mb-4"
                     />
                   ) : (
@@ -89,7 +91,7 @@ const Clients = () => {
       </section>
 
       {/* Collaborations */}
-      <section className="section-padding bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary">
         <div className="container-custom">
           <SectionHeading
             badge="Featured Work"
@@ -103,7 +105,9 @@ const Clients = () => {
               ))}
             </div>
           ) : collaborations.length === 0 ? (
-            <p className="text-center text-muted-foreground">No collaborations yet. Add collaborations in the admin dashboard.</p>
+            <p className="text-center text-muted-foreground">
+              No collaborations yet. Add collaborations in the admin dashboard.
+            </p>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
               {collaborations.map((collab, index) => (
@@ -115,17 +119,16 @@ const Clients = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-card rounded-xl p-8 shadow-card relative"
                 >
-                  {/* Client Image in top right corner */}
                   {collab.image_url && (
                     <div className="absolute top-4 right-4">
-                      <img 
-                        src={collab.image_url} 
+                      <img
+                        src={collab.image_url}
                         alt={collab.name}
                         className="w-16 h-16 rounded-full object-cover border-2 border-accent"
                       />
                     </div>
                   )}
-                  
+
                   <div className="flex items-center justify-between mb-4 pr-20">
                     {collab.year && (
                       <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
@@ -148,7 +151,7 @@ const Clients = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="section-padding bg-primary">
+      <section className="py-12 md:py-16 bg-primary">
         <div className="container-custom">
           <SectionHeading
             badge="Testimonials"
@@ -163,7 +166,9 @@ const Clients = () => {
               ))}
             </div>
           ) : testimonials.length === 0 ? (
-            <p className="text-center text-primary-foreground/60">No testimonials yet. Add testimonials in the admin dashboard.</p>
+            <p className="text-center text-primary-foreground/60">
+              No testimonials yet. Add testimonials in the admin dashboard.
+            </p>
           ) : (
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
@@ -173,9 +178,13 @@ const Clients = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onClick={() => testimonial.video_url && handleVideoClick(testimonial.video_url)}
+                  onClick={() =>
+                    testimonial.video_url && handleVideoClick(testimonial.video_url)
+                  }
                   className={`bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10 ${
-                    testimonial.video_url ? "cursor-pointer hover:bg-primary-foreground/10 transition-colors" : ""
+                    testimonial.video_url
+                      ? "cursor-pointer hover:bg-primary-foreground/10 transition-colors"
+                      : ""
                   }`}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -191,8 +200,8 @@ const Clients = () => {
                   </p>
                   <div className="flex items-center gap-3">
                     {testimonial.client_image_url && (
-                      <img 
-                        src={testimonial.client_image_url} 
+                      <img
+                        src={testimonial.client_image_url}
                         alt={testimonial.client_name}
                         className="w-12 h-12 rounded-full object-cover"
                       />
@@ -217,7 +226,7 @@ const Clients = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-accent">
+      <section className="py-12 md:py-16 bg-accent">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

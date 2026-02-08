@@ -11,7 +11,9 @@ interface Stats {
 // Base values to add to dynamic counts
 const BASE_PROJECTS = 31;
 const BASE_CLIENTS = 11;
-const START_YEAR = 2018; // Company founding year
+const BASE_TEAMS = 10;
+const START_YEAR = 2018;
+ // Company founding year
 
 export const useDynamicStats = () => {
   return useQuery({
@@ -51,7 +53,7 @@ export const useDynamicStats = () => {
       return {
         projectsCount: BASE_PROJECTS + (projectsCount || 0),
         clientsCount: BASE_CLIENTS + (clientsCount || 0),
-        teamCount: teamCount || 0,
+        teamCount:  BASE_TEAMS + (teamCount || 0),
         yearsExperience,
       };
     },

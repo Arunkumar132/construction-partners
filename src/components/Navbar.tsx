@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Building2, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -26,9 +27,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <Building2 className="h-8 w-8 text-accent" />
+            <img src={logo} alt="Shree Vaari Spaces Logo" className="h-10 w-auto" />
             <span className="text-xl font-display font-bold text-primary-foreground">
-              BuildCraft
+              Shree Vaari Spaces
             </span>
           </Link>
 

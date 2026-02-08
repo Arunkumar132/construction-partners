@@ -14,7 +14,8 @@ const services = [
     icon: Building,
     title: "Construction",
     subtitle: "Building Strong Foundations",
-    description: "From groundbreaking to completion, we deliver comprehensive construction services that meet the highest standards of quality and safety.",
+    description:
+      "From groundbreaking to completion, we deliver comprehensive construction services that meet the highest standards of quality and safety.",
     image: serviceConstruction,
     link: "/services/construction",
     features: [
@@ -31,7 +32,8 @@ const services = [
     icon: Paintbrush,
     title: "Interior Design",
     subtitle: "Crafting Beautiful Spaces",
-    description: "Transform your interiors with our expert design services that blend aesthetics, functionality, and your personal style.",
+    description:
+      "Transform your interiors with our expert design services that blend aesthetics, functionality and your personal style.",
     image: serviceInterior,
     link: "/services/interior",
     features: [
@@ -48,7 +50,8 @@ const services = [
     icon: Home,
     title: "Exterior Design",
     subtitle: "Creating Lasting Impressions",
-    description: "Design stunning facades and outdoor spaces that enhance curb appeal and create memorable first impressions.",
+    description:
+      "Design stunning facades and outdoor spaces that enhance curb appeal and create memorable first impressions.",
     image: serviceExterior,
     link: "/services/exterior",
     features: [
@@ -64,34 +67,34 @@ const services = [
 
 const process = [
   {
-    step: "01",
+    step: "",
     icon: Ruler,
     title: "Consultation",
-    description: "We discuss your vision, requirements, and budget to create a tailored plan.",
+    description: "We discuss your vision, requirements and budget to create a tailored plan.",
   },
   {
-    step: "02",
+    step: "",
     icon: HardHat,
     title: "Planning & Design",
     description: "Our team develops detailed blueprints and 3D visualizations for your approval.",
   },
   {
-    step: "03",
+    step: "",
     icon: Briefcase,
     title: "Organization",
-    description: "We organize resources, permits, and schedules for seamless execution.",
+    description: "We organize resources, permits and schedules for seamless execution.",
   },
   {
-    step: "04",
+    step: "",
     icon: Hammer,
     title: "Construction",
     description: "Expert craftsmen bring your project to life with precision and quality.",
   },
   {
-    step: "05",
+    step: "",
     icon: Truck,
     title: "Delivery",
-    description: "Final inspection, handover, and after-sales support for your peace of mind.",
+    description: "Final inspection, handover and after-sales support for your peace of mind.",
   },
 ];
 
@@ -99,7 +102,7 @@ const Services = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -115,7 +118,7 @@ const Services = () => {
               <span className="text-gradient-accent block">Every Project</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80">
-              From construction to design, we offer end-to-end services that bring your vision to life 
+              From construction to design, we offer end to end services that bring your vision to life
               with excellence and precision.
             </p>
           </motion.div>
@@ -123,7 +126,7 @@ const Services = () => {
       </section>
 
       {/* Services Detail */}
-      <section className="section-padding bg-background">
+      <section className="py-14 md:py-18 bg-background">
         <div className="container-custom">
           {services.map((service, index) => (
             <motion.div
@@ -134,7 +137,7 @@ const Services = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className={`grid lg:grid-cols-2 gap-12 items-center ${
-                index !== services.length - 1 ? "mb-24" : ""
+                index !== services.length - 1 ? "mb-16" : ""
               } ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
             >
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
@@ -174,7 +177,7 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="section-padding bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary">
         <div className="container-custom">
           <SectionHeading
             badge="How We Work"
@@ -210,7 +213,7 @@ const Services = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-primary">
+      <section className="py-12 md:py-16 bg-primary">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
