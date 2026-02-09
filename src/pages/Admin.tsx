@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake } from "lucide-react";
+import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,11 +13,13 @@ import { useProjects } from "@/hooks/useProjects";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { useClients, Client } from "@/hooks/useClients";
 import { useCollaborations, Collaboration } from "@/hooks/useCollaborations";
+import { useHeroSlides, HeroSlide } from "@/hooks/useHeroSlides";
 import TeamMemberForm from "@/components/admin/TeamMemberForm";
 import ProjectForm from "@/components/admin/ProjectForm";
 import TestimonialForm from "@/components/admin/TestimonialForm";
 import ClientForm from "@/components/admin/ClientForm";
 import CollaborationForm from "@/components/admin/CollaborationForm";
+import HeroSlideForm from "@/components/admin/HeroSlideForm";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/integrations/supabase/types";
@@ -33,6 +35,7 @@ const Admin = () => {
   const { testimonials, refetch: refetchTestimonials } = useTestimonials();
   const { clients, refetch: refetchClients } = useClients();
   const { collaborations, refetch: refetchCollaborations } = useCollaborations();
+  const { slides: heroSlides, refetch: refetchHeroSlides } = useHeroSlides();
   const { toast } = useToast();
 
   const [showTeamDialog, setShowTeamDialog] = useState(false);
@@ -40,11 +43,13 @@ const Admin = () => {
   const [showTestimonialDialog, setShowTestimonialDialog] = useState(false);
   const [showClientDialog, setShowClientDialog] = useState(false);
   const [showCollaborationDialog, setShowCollaborationDialog] = useState(false);
+  const [showHeroSlideDialog, setShowHeroSlideDialog] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [editingCollaboration, setEditingCollaboration] = useState<Collaboration | null>(null);
+  const [editingHeroSlide, setEditingHeroSlide] = useState<HeroSlide | null>(null);
 
   if (isLoading) {
     return (
@@ -125,6 +130,16 @@ const Admin = () => {
     }
   };
 
+  const handleDeleteHeroSlide = async (id: string) => {
+    const { error } = await supabase.from("hero_slides").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Deleted", description: "Slide removed successfully." });
+      refetchHeroSlides();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-secondary">
       {/* Header */}
@@ -153,7 +168,7 @@ const Admin = () => {
           transition={{ duration: 0.5 }}
         >
           <Tabs defaultValue="team" className="space-y-6">
-            <TabsList className="grid w-full max-w-3xl grid-cols-5">
+            <TabsList className="grid w-full max-w-4xl grid-cols-6">
               <TabsTrigger value="team" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 <span className="hidden sm:inline">Team</span>
@@ -173,6 +188,10 @@ const Admin = () => {
               <TabsTrigger value="testimonials" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
                 <span className="hidden sm:inline">Testimonials</span>
+              </TabsTrigger>
+              <TabsTrigger value="hero-slides" className="flex items-center gap-2">
+                <Image className="h-4 w-4" />
+                <span className="hidden sm:inline">Banners</span>
               </TabsTrigger>
             </TabsList>
 
@@ -623,6 +642,67 @@ const Admin = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            {/* Hero Slides Tab */}
+            <TabsContent value="hero-slides">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Banner Slides ({heroSlides.length})</CardTitle>
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    onClick={() => {
+                      setEditingHeroSlide(null);
+                      setShowHeroSlideDialog(true);
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Slide
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  {heroSlides.length === 0 ? (
+                    <p className="text-muted-foreground text-center py-8">
+                      No banner slides yet. Default images will be used until you add slides here.
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {heroSlides.map((slide) => (
+                        <div key={slide.id} className="flex items-center gap-4 p-4 bg-background rounded-lg border">
+                          <div className="w-24 h-14 rounded bg-muted overflow-hidden shrink-0">
+                            <img src={slide.image_url} alt="Slide" className="w-full h-full object-cover" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold truncate">Slide (Order: {slide.display_order})</p>
+                            <p className="text-sm text-muted-foreground">{slide.is_active ? "Active" : "Inactive"}</p>
+                          </div>
+                          <div className="flex gap-2 shrink-0">
+                            <Button variant="outline" size="icon" onClick={() => { setEditingHeroSlide(slide); setShowHeroSlideDialog(true); }}>
+                              <Edit2 className="h-4 w-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="icon" className="text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete slide?</AlertDialogTitle>
+                                  <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDeleteHeroSlide(slide.id)}>Delete</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </motion.div>
       </main>
@@ -718,6 +798,20 @@ const Admin = () => {
               refetchTestimonials();
             }}
             onCancel={() => setShowTestimonialDialog(false)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Hero Slide Dialog */}
+      <Dialog open={showHeroSlideDialog} onOpenChange={setShowHeroSlideDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{editingHeroSlide ? "Edit Slide" : "Add Banner Slide"}</DialogTitle>
+          </DialogHeader>
+          <HeroSlideForm
+            slide={editingHeroSlide}
+            onSuccess={() => { setShowHeroSlideDialog(false); refetchHeroSlides(); }}
+            onCancel={() => setShowHeroSlideDialog(false)}
           />
         </DialogContent>
       </Dialog>

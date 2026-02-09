@@ -111,7 +111,7 @@ const Footer = () => {
             <h3 className="text-lg font-display font-semibold mb-6">Find Us</h3>
             <div className="rounded-lg overflow-hidden h-[180px] border border-primary-foreground/20 shadow-sm">
               <iframe
-                src="https://www.google.com/maps?q=Shree+Vaari+Spaces,+Arasur,+Coimbatore&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1!2d77.1262589!3d11.1052675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA2JzE5LjAiTiA3N8KwMDcnMzQuNSJF!5e0!3m2!1sen!2sin!4v1"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

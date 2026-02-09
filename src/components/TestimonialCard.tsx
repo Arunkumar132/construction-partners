@@ -31,48 +31,42 @@ const TestimonialCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onClick={handleClick}
-      className={`bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 p-6 ${
+      className={`bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 ${
         videoUrl ? "cursor-pointer" : ""
       }`}
     >
-      <div className="flex items-start gap-4">
-        {/* Client Image */}
-        <div className="shrink-0">
-          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-accent relative">
-            <img
-              src={clientImageUrl || "/placeholder.svg"}
-              alt={clientName}
-              className="w-full h-full object-cover"
-            />
-            {videoUrl && (
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <Play className="h-6 w-6 text-white" />
+      {/* Project/House Image with Play Button */}
+      {clientImageUrl && (
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img
+            src={clientImageUrl}
+            alt={clientName}
+            className="w-full h-full object-cover"
+          />
+          {videoUrl && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-accent/90 flex items-center justify-center shadow-lg hover:bg-accent transition-colors">
+                <Play className="h-7 w-7 text-accent-foreground ml-1" fill="currentColor" />
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1">
-          <h3 className="text-lg font-display font-bold text-foreground">
-            {clientName}
-          </h3>
-          {location && (
-            <div className="flex items-center gap-1 text-muted-foreground text-sm mt-1">
-              <MapPin className="h-3 w-3" />
-              <span>{location}</span>
             </div>
           )}
-          <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
-            "{testimonial}"
-          </p>
-          {videoUrl && (
-            <span className="inline-flex items-center gap-1 text-accent text-sm font-medium mt-3">
-              <Play className="h-4 w-4" />
-              Watch Video
-            </span>
-          )}
         </div>
+      )}
+
+      {/* Client Info & Feedback */}
+      <div className="p-5 text-center">
+        <h3 className="text-lg font-display font-bold text-foreground">
+          {clientName}
+        </h3>
+        {location && (
+          <div className="flex items-center justify-center gap-1 text-muted-foreground text-sm mt-1">
+            <MapPin className="h-3 w-3" />
+            <span>{location}</span>
+          </div>
+        )}
+        <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+          {testimonial}
+        </p>
       </div>
     </motion.div>
   );
