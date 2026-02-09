@@ -22,13 +22,13 @@ const Navbar = () => {
   const { user, isAdmin, signOut } = useAuth();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Shree Vaari Spaces Logo" className="h-10 w-auto" />
-            <span className="text-xl font-display font-bold text-primary-foreground">
+            <span className="text-xl font-display font-bold text-foreground">
               Shree Vaari Spaces
             </span>
           </Link>
@@ -42,7 +42,7 @@ const Navbar = () => {
                 className={`text-sm font-medium transition-colors duration-200 ${
                   location.pathname === link.path
                     ? "text-accent"
-                    : "text-primary-foreground/80 hover:text-primary-foreground"
+                    : "text-foreground/70 hover:text-foreground"
                 }`}
               >
                 {link.name}
@@ -58,22 +58,22 @@ const Navbar = () => {
             {user ? (
               <div className="flex items-center gap-2">
                 {isAdmin && (
-                  <Button variant="ghost" size="sm" asChild className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10">
-                    <Link to="/admin">Dashboard</Link>
-                  </Button>
-                )}
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={signOut}
-                  className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                  <Button variant="ghost" size="sm" asChild className="text-foreground/70 hover:text-foreground">
+                     <Link to="/admin">Dashboard</Link>
+                   </Button>
+                 )}
+                 <Button 
+                   variant="ghost" 
+                   size="icon"
+                   onClick={signOut}
+                   className="text-foreground/70 hover:text-foreground"
                   title="Sign Out"
                 >
                   <LogOut className="h-5 w-5" />
                 </Button>
               </div>
             ) : (
-              <Button variant="ghost" size="sm" asChild className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10">
+              <Button variant="ghost" size="sm" asChild className="text-foreground/70 hover:text-foreground">
                 <Link to="/admin/login">
                   <LogIn className="h-4 w-4 mr-2" />
                   Admin
@@ -85,7 +85,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-primary-foreground p-2"
+            className="lg:hidden text-foreground p-2"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -110,7 +110,7 @@ const Navbar = () => {
                     className={`block py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
                       location.pathname === link.path
                         ? "bg-accent text-accent-foreground"
-                        : "text-primary-foreground/80 hover:bg-primary-foreground/10"
+                        : "text-foreground/70 hover:bg-muted"
                     }`}
                   >
                     {link.name}
@@ -133,7 +133,7 @@ const Navbar = () => {
                       )}
                       <Button 
                         variant="ghost" 
-                        className="w-full text-primary-foreground/80"
+                        className="w-full text-foreground/70"
                         onClick={() => {
                           signOut();
                           setIsOpen(false);
