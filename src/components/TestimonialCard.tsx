@@ -39,7 +39,7 @@ const TestimonialCard = ({
     >
       {/* Project/House Photo with Play Button */}
       {projectImageUrl && (
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[16/10]">
           <img
             src={projectImageUrl}
             alt={`${clientName}'s project`}
