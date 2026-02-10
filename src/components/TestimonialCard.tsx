@@ -54,8 +54,8 @@ const TestimonialCard = ({
           )}
           {/* Small client image overlapping at bottom center */}
           {clientImageUrl && (
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-10">
-              <div className="w-16 h-16 rounded-lg overflow-hidden border-3 border-card shadow-md">
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-10">
+              <div className="w-20 h-20 rounded-lg overflow-hidden border-4 border-card shadow-md">
                 <img
                   src={clientImageUrl}
                   alt={clientName}
@@ -68,7 +68,7 @@ const TestimonialCard = ({
       )}
 
       {/* Client Info & Feedback */}
-      <div className={`p-5 text-center ${projectImageUrl && clientImageUrl ? "pt-10" : ""}`}>
+      <div className={`p-5 text-center ${projectImageUrl && clientImageUrl ? "pt-12" : ""}`}>
         {/* If no project image, show client image inline */}
         {!projectImageUrl && clientImageUrl && (
           <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-accent mx-auto mb-3">
