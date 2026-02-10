@@ -197,6 +197,7 @@ export type Database = {
           id: string
           is_featured: boolean | null
           location: string | null
+          project_image_url: string | null
           testimonial: string
           updated_at: string
           video_url: string | null
@@ -209,6 +210,7 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           location?: string | null
+          project_image_url?: string | null
           testimonial: string
           updated_at?: string
           video_url?: string | null
@@ -221,6 +223,7 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           location?: string | null
+          project_image_url?: string | null
           testimonial?: string
           updated_at?: string
           video_url?: string | null

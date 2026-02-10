@@ -60,6 +60,7 @@ const TestimonialsSection = () => {
               location={testimonial.location || undefined}
               testimonial={testimonial.testimonial}
               clientImageUrl={testimonial.client_image_url || undefined}
+              projectImageUrl={(testimonial as any).project_image_url || undefined}
               videoUrl={testimonial.video_url || undefined}
               index={index}
             />
