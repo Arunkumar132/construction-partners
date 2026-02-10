@@ -6,6 +6,7 @@ interface TestimonialCardProps {
   location?: string;
   testimonial: string;
   clientImageUrl?: string;
+  projectImageUrl?: string;
   videoUrl?: string;
   index?: number;
 }
@@ -15,6 +16,7 @@ const TestimonialCard = ({
   location,
   testimonial,
   clientImageUrl,
+  projectImageUrl,
   videoUrl,
   index = 0,
 }: TestimonialCardProps) => {
@@ -35,12 +37,12 @@ const TestimonialCard = ({
         videoUrl ? "cursor-pointer" : ""
       }`}
     >
-      {/* Project/House Image with Play Button */}
-      {clientImageUrl && (
+      {/* Project/House Photo with Play Button */}
+      {projectImageUrl && (
         <div className="relative aspect-[16/10] overflow-hidden">
           <img
-            src={clientImageUrl}
-            alt={clientName}
+            src={projectImageUrl}
+            alt={`${clientName}'s project`}
             className="w-full h-full object-cover"
           />
           {videoUrl && (
@@ -50,11 +52,29 @@ const TestimonialCard = ({
               </div>
             </div>
           )}
+          {/* Small client image overlapping at bottom center */}
+          {clientImageUrl && (
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-10">
+              <div className="w-16 h-16 rounded-lg overflow-hidden border-3 border-card shadow-md">
+                <img
+                  src={clientImageUrl}
+                  alt={clientName}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
       {/* Client Info & Feedback */}
-      <div className="p-5 text-center">
+      <div className={`p-5 text-center ${projectImageUrl && clientImageUrl ? "pt-10" : ""}`}>
+        {/* If no project image, show client image inline */}
+        {!projectImageUrl && clientImageUrl && (
+          <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-accent mx-auto mb-3">
+            <img src={clientImageUrl} alt={clientName} className="w-full h-full object-cover" />
+          </div>
+        )}
         <h3 className="text-lg font-display font-bold text-foreground">
           {clientName}
         </h3>

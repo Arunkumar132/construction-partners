@@ -25,6 +25,7 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
     location: testimonial?.location || "",
     testimonial: testimonial?.testimonial || "",
     client_image_url: testimonial?.client_image_url || "",
+    project_image_url: (testimonial as any)?.project_image_url || "",
     video_url: testimonial?.video_url || "",
     display_order: testimonial?.display_order || 0,
     is_featured: testimonial?.is_featured || false,
@@ -39,10 +40,11 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
       location: formData.location || null,
       testimonial: formData.testimonial,
       client_image_url: formData.client_image_url || null,
+      project_image_url: formData.project_image_url || null,
       video_url: formData.video_url || null,
       display_order: formData.display_order,
       is_featured: formData.is_featured,
-    };
+    } as any;
 
     if (testimonial) {
       const { error } = await supabase
@@ -105,9 +107,16 @@ const TestimonialForm = ({ testimonial, onSuccess, onCancel }: TestimonialFormPr
       </div>
 
       <ImageUpload
-        label="Client Photo"
+        label="Client Photo (small)"
         value={formData.client_image_url}
         onChange={(url) => setFormData({ ...formData, client_image_url: url })}
+        folder="testimonials"
+      />
+
+      <ImageUpload
+        label="Project/House Photo (large background)"
+        value={formData.project_image_url}
+        onChange={(url) => setFormData({ ...formData, project_image_url: url })}
         folder="testimonials"
       />
 
