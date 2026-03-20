@@ -185,7 +185,7 @@ const Admin = () => {
           transition={{ duration: 0.5 }}
         >
           <Tabs defaultValue="team" className="space-y-6">
-            <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 w-full lg:grid lg:grid-cols-7 gap-1">
+            <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 w-full lg:grid lg:grid-cols-8 gap-1">
               <TabsTrigger value="team" className="flex items-center gap-2 py-2.5">
                 <Users className="h-4 w-4" />
                 <span className="hidden sm:inline">Team</span>
@@ -213,6 +213,10 @@ const Admin = () => {
               <TabsTrigger value="hero-slides" className="flex items-center gap-2 py-2.5">
                 <Image className="h-4 w-4" />
                 <span className="hidden sm:inline">Banners</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-2 py-2.5">
+                <Settings className="h-4 w-4" />
+                <span className="hidden sm:inline">Settings</span>
               </TabsTrigger>
             </TabsList>
 
