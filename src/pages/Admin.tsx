@@ -22,6 +22,7 @@ import TestimonialForm from "@/components/admin/TestimonialForm";
 import ClientForm from "@/components/admin/ClientForm";
 import CollaborationForm from "@/components/admin/CollaborationForm";
 import HeroSlideForm from "@/components/admin/HeroSlideForm";
+import AccountSettings from "@/components/admin/AccountSettings";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/integrations/supabase/types";
