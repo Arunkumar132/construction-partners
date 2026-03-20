@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image, Briefcase } from "lucide-react";
+import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image, Briefcase, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,6 +22,7 @@ import TestimonialForm from "@/components/admin/TestimonialForm";
 import ClientForm from "@/components/admin/ClientForm";
 import CollaborationForm from "@/components/admin/CollaborationForm";
 import HeroSlideForm from "@/components/admin/HeroSlideForm";
+import AccountSettings from "@/components/admin/AccountSettings";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/integrations/supabase/types";
@@ -184,7 +185,7 @@ const Admin = () => {
           transition={{ duration: 0.5 }}
         >
           <Tabs defaultValue="team" className="space-y-6">
-            <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 w-full lg:grid lg:grid-cols-7 gap-1">
+            <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 w-full lg:grid lg:grid-cols-8 gap-1">
               <TabsTrigger value="team" className="flex items-center gap-2 py-2.5">
                 <Users className="h-4 w-4" />
                 <span className="hidden sm:inline">Team</span>
@@ -212,6 +213,10 @@ const Admin = () => {
               <TabsTrigger value="hero-slides" className="flex items-center gap-2 py-2.5">
                 <Image className="h-4 w-4" />
                 <span className="hidden sm:inline">Banners</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-2 py-2.5">
+                <Settings className="h-4 w-4" />
+                <span className="hidden sm:inline">Settings</span>
               </TabsTrigger>
             </TabsList>
 
@@ -811,6 +816,11 @@ const Admin = () => {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* Account Settings Tab */}
+            <TabsContent value="settings">
+              <AccountSettings />
             </TabsContent>
           </Tabs>
         </motion.div>
