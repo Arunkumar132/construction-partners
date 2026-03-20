@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image, Briefcase } from "lucide-react";
+import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image, Briefcase, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
