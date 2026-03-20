@@ -13,6 +13,7 @@ const AccountSettings = () => {
   const { toast } = useToast();
 
   const [newEmail, setNewEmail] = useState("");
+  const [emailPassword, setEmailPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,6 +25,19 @@ const AccountSettings = () => {
     if (!newEmail.trim()) return;
 
     setIsUpdatingEmail(true);
+
+    // Re-authenticate first to confirm identity
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: user?.email || "",
+      password: emailPassword,
+    });
+
+    if (signInError) {
+      toast({ title: "Error", description: "Password is incorrect.", variant: "destructive" });
+      setIsUpdatingEmail(false);
+      return;
+    }
+
     const { error } = await supabase.auth.updateUser({
       email: newEmail,
     });
@@ -32,10 +46,11 @@ const AccountSettings = () => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } else {
       toast({
-        title: "Confirmation sent",
-        description: "A confirmation link has been sent to your new email address. Please check both your old and new email inboxes.",
+        title: "Email updated",
+        description: "Your email has been changed successfully.",
       });
       setNewEmail("");
+      setEmailPassword("");
     }
     setIsUpdatingEmail(false);
   };
@@ -105,6 +120,17 @@ const AccountSettings = () => {
                 placeholder="new@example.com"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email-password">Current Password</Label>
+              <Input
+                id="email-password"
+                type="password"
+                placeholder="••••••••"
+                value={emailPassword}
+                onChange={(e) => setEmailPassword(e.target.value)}
                 required
               />
             </div>
