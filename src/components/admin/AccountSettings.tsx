@@ -24,6 +24,19 @@ const AccountSettings = () => {
     if (!newEmail.trim()) return;
 
     setIsUpdatingEmail(true);
+
+    // Re-authenticate first to confirm identity
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: user?.email || "",
+      password: emailPassword,
+    });
+
+    if (signInError) {
+      toast({ title: "Error", description: "Password is incorrect.", variant: "destructive" });
+      setIsUpdatingEmail(false);
+      return;
+    }
+
     const { error } = await supabase.auth.updateUser({
       email: newEmail,
     });
@@ -32,10 +45,11 @@ const AccountSettings = () => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } else {
       toast({
-        title: "Confirmation sent",
-        description: "A confirmation link has been sent to your new email address. Please check both your old and new email inboxes.",
+        title: "Email updated",
+        description: "Your email has been changed successfully.",
       });
       setNewEmail("");
+      setEmailPassword("");
     }
     setIsUpdatingEmail(false);
   };
