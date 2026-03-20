@@ -817,6 +817,11 @@ const Admin = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            {/* Account Settings Tab */}
+            <TabsContent value="settings">
+              <AccountSettings />
+            </TabsContent>
           </Tabs>
         </motion.div>
       </main>
