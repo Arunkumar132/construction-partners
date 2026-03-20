@@ -26,7 +26,7 @@ const contactInfo = [
     icon: MapPin,
     title: "Address",
     details: ["No: 26-A, Bishop Amburose Nagar", "Arasur, Sulur, Coimbatore - 641 407"],
-    action: { label: "Get directions", href: "https://maps.google.com" },
+    action: { label: "Get directions", href: "https://www.google.com/maps?q=11.105278,77.126250" },
   },
   {
     icon: Clock,
@@ -272,14 +272,14 @@ const Contact = () => {
               className="h-[400px] lg:h-auto min-h-[400px] rounded-xl overflow-hidden shadow-card"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30591910525!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1!2d77.1234!3d11.1053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA2JzE5LjAiTiA3N8KwMDcnMzQuNSJF!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="BuildCraft Location"
+                title="Shree Vaari Spaces Location"
               />
             </motion.div>
           </div>

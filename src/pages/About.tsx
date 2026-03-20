@@ -54,8 +54,8 @@ const About = () => {
               About Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
-              7 Years of Building
-              <span className="text-gradient-accent block">Excellence & Trust</span>
+              Crafting Quality Spaces 
+              <span className="text-gradient-accent block">Since 7 Years.</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
               Since 2018, we've been transforming the construction landscape with innovation, 
@@ -65,8 +65,32 @@ const About = () => {
         </div>
       </section>
 
+      {/* ================= DYNAMIC STATS SECTION ================= */}
+      <section className="py-12 md:py-16 bg-muted">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Our Growth"
+            title="Dynamic Company Statistics"
+            subtitle="Updated automatically from our latest records"
+          />
+
+          {isLoading ? (
+            <p className="text-center text-muted-foreground">Loading stats...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">Failed to load statistics.</p>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+              <StatCard number={String(stats?.yearsExperience)} suffix="+" label="Years Experience" delay={0} labelColor="dark" />
+              <StatCard number={String(stats?.projectsCount)} suffix="+" label="Projects Completed" delay={0.1} labelColor="dark" />
+              <StatCard number={String(stats?.clientsCount)} suffix="+" label="Happy Clients" delay={0.2} labelColor="dark" />
+              <StatCard number={String(stats?.teamCount)} suffix="+" label="Team Members" delay={0.3} labelColor="dark" />
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* ================= STORY ================= */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-16 md:py-24 bg-background border-t border-accent/10">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -100,59 +124,21 @@ const About = () => {
                   );
 
                 return (
-                  <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+                  <div className="space-y-4 text-muted-foreground text-lg leading-relaxed text-justify [text-justify:inter-word]">
                     <p>
-                      BuildCraft was founded in 2018 with a simple yet powerful mission to redefine 
-                      construction excellence. What started as a small team of passionate builders has 
-                      grown into one of the region's most trusted construction companies.
+                      At Shree Vaari Spaces, we have been delivering trusted construction and interior solutions for the past 7 years. Our expertise covers construction, interiors, fabrication, electrical works, communication systems, and custom furniture.
                     </p>
                     <p>
-                      Over the past{" "} 
-                      <span className="text-accent font-semibold">
-                        {stats?.projectsCount || 500}+
-                      </span>{" "} years, we've successfully delivered more than 500 projects, 
-                      ranging from residential homes to large scale commercial complexes. Our commitment 
-                      to quality, innovation and client satisfaction has earned us numerous accolades 
-                      and more importantly, the trust of our clients.
+                      We believe that every project is unique. That is why we work closely with our clients to understand their needs and transform their ideas into practical and beautiful spaces.
                     </p>
                     <p>
-                      Today, with a team of{" "}
-                      <span className="text-accent font-semibold">
-                        {stats?.teamCount}+
-                      </span>{" "}
-                      skilled professionals, we continue to push boundaries 
-                      and set new standards in the construction industry.
+                      With a strong commitment to quality, innovation, and timely project completion, we continue to build long-term relationships with our clients.
                     </p>
                   </div>
                 );
               })()}
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* ================= DYNAMIC STATS SECTION ================= */}
-      <section className="py-12 md:py-16 bg-primary text-primary-foreground">
-        <div className="container-custom">
-          <SectionHeading
-            badge="Our Growth"
-            title="Dynamic Company Statistics"
-            subtitle="Updated automatically from our latest records"
-            light
-          />
-
-          {isLoading ? (
-            <p className="text-center text-primary-foreground/70">Loading stats...</p>
-          ) : error ? (
-            <p className="text-center text-red-300">Failed to load statistics.</p>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-              <StatCard number={String(stats?.yearsExperience)} suffix="+" label="Years Experience" delay={0} />
-              <StatCard number={String(stats?.projectsCount)} suffix="+" label="Projects Completed" delay={0.1} />
-              <StatCard number={String(stats?.clientsCount)} suffix="+" label="Happy Clients" delay={0.2} />
-              <StatCard number={String(stats?.teamCount)} suffix="+" label="Team Members" delay={0.3} />
-            </div>
-          )}
         </div>
       </section>
 
@@ -180,7 +166,7 @@ const About = () => {
                 <h3 className="text-2xl font-display font-bold text-foreground mb-4">
                   {value.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                <p className="text-muted-foreground leading-relaxed text-justify [text-justify:inter-word]">{value.description}</p>
               </motion.div>
             ))}
           </div>
@@ -188,13 +174,12 @@ const About = () => {
       </section>
 
       {/* ================= ACHIEVEMENTS ================= */}
-      <section className="py-12 md:py-16 bg-primary">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Recognition"
             title="Our Achievements"
             subtitle="Milestones that define our journey"
-            light
           />
 
           {/* Fetch Dynamic Stats */}
@@ -202,9 +187,9 @@ const About = () => {
             const { data: stats, isLoading, error } = useDynamicStats();
 
             if (isLoading)
-              return <p className="text-center text-primary-foreground/70 mt-6">Loading achievements...</p>;
+              return <p className="text-center text-muted-foreground mt-6">Loading achievements...</p>;
             if (error)
-              return <p className="text-center text-red-300 mt-6">Failed to load achievements.</p>;
+              return <p className="text-center text-red-500 mt-6">Failed to load achievements.</p>;
 
             const updatedAchievements = [
               { icon: Award, title: "Best Construction Company 2023", description: "Regional Excellence Award" },
@@ -225,15 +210,15 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-primary-foreground/5 rounded-xl p-8 border border-primary-foreground/10 text-center"
+                    className="bg-card shadow-card hover:shadow-card-hover transition-all duration-300 rounded-xl p-8 text-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
                       <achievement.icon className="h-8 w-8 text-accent" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-primary-foreground mb-2">
+                    <h3 className="text-xl font-display font-bold text-foreground mb-2">
                       {achievement.title}
                     </h3>
-                    <p className="text-primary-foreground/70">{achievement.description}</p>
+                    <p className="text-muted-foreground">{achievement.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -243,7 +228,7 @@ const About = () => {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="py-12 md:py-16 bg-accent">
+      <section className="py-12 md:py-16 bg-accent/80">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -251,13 +236,13 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-accent-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
               Have Questions?
             </h2>
-            <p className="text-lg text-accent-foreground/80 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">
               We'd love to hear from you. Send us an enquiry and our team will get back to you within 24 hours.
             </p>
-            <Button variant="default" size="xl" asChild>
+            <Button variant="default" size="xl" asChild className="hover:scale-105 transition-all duration-300 font-bold bg-primary text-primary-foreground shadow-lg">
               <Link to="/contact">
                 Send an Enquiry
                 <ArrowRight className="ml-2 h-5 w-5" />

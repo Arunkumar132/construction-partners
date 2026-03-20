@@ -1,12 +1,13 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Linkedin, Mail, Users } from "lucide-react";
+import { ArrowRight, Linkedin, Mail, Users, Award, Shield, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
-import { useDynamicStats } from "@/hooks/useDynamicStats";
+
 const departments = [
   { name: "Architecture & Design", count: 2 },
   { name: "Project Management", count: 2 },
@@ -17,17 +18,26 @@ const departments = [
 ];
 
 const values = [
-  { title: "Excellence", description: "We strive for excellence in every detail, from planning to execution." },
-  { title: "Integrity", description: "Honesty and transparency guide all our interactions and decisions." },
-  { title: "Innovation", description: "We embrace new technologies and methods to deliver better results." },
-  { title: "Teamwork", description: "Collaboration is at the heart of everything we accomplish." },
+  { step: "01", icon: Award, title: "Excellence", description: "We strive for excellence in every detail, from planning to execution." },
+  { step: "02", icon: Shield, title: "Integrity", description: "Honesty and transparency guide all our interactions and decisions." },
+  { step: "03", icon: Lightbulb, title: "Innovation", description: "We embrace new technologies and methods to deliver better results." },
+  { step: "04", icon: Users, title: "Teamwork", description: "Collaboration is at the heart of everything we accomplish." },
 ];
 
 const Team = () => {
   const { teamMembers, isLoading } = useTeamMembers();
+  const [currentValueIndex, setCurrentValueIndex] = useState(0);
 
   const leadership = teamMembers.filter((m) => m.is_leadership);
   const expertTeam = teamMembers.filter((m) => !m.is_leadership);
+
+  // Auto-slide for mobile values section
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentValueIndex((prev) => (prev + 1) % values.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <Layout>
@@ -45,10 +55,10 @@ const Team = () => {
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               The People Behind
-              <span className="text-gradient-accent block">Sree Vaari Spaces</span>
+              <span className="text-gradient-accent block">Shree Vaari Spaces</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
-              A dedicated team of 12+ professionals united by a passion for construction excellence
+              A dedicated team of professionals united by a passion for construction excellence
               and innovation.
             </p>
           </motion.div>
@@ -122,7 +132,7 @@ const Team = () => {
           <SectionHeading
             badge="Leadership"
             title="Meet Our Leaders"
-            subtitle="The visionaries driving Sree Vaari Spaces forward"
+            subtitle="The visionaries driving Shree Vaari Spaces forward"
           />
 
           {isLoading ? (
@@ -199,7 +209,7 @@ const Team = () => {
         <div className="container-custom">
           <SectionHeading
             badge="Our Departments"
-            title="50+ Experts Across 6 Departments"
+            title="Experts Across 6 Departments"
             subtitle="Specialized teams working together to deliver excellence"
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -222,40 +232,99 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-12 md:py-16 bg-primary">
+      {/* Values Redesign */}
+      <section className="py-12 md:py-24 bg-secondary overflow-hidden">
         <div className="container-custom">
           <SectionHeading
             badge="Our Culture"
             title="Values We Live By"
             subtitle="The principles that guide our team every day"
-            light
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl font-display font-bold text-accent">{index + 1}</span>
-                </div>
-                <h3 className="text-xl font-display font-bold text-primary-foreground mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-primary-foreground/70">{value.description}</p>
-              </motion.div>
-            ))}
+          
+          {/* MOBILE VIEW: SLIDER (Matches Our Process) */}
+          <div className="lg:hidden mt-8">
+            <div className="relative h-[320px] flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentValueIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-card rounded-2xl p-6 md:p-8 shadow-card absolute w-full max-w-sm text-center border-y-4 border-accent/50"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-accent/80 flex items-center justify-center mx-auto mb-4 shrink-0 shadow-lg shadow-accent/30">
+                    {(() => {
+                      const Icon = values[currentValueIndex].icon;
+                      return <Icon className="h-8 w-8 text-white" />;
+                    })()}
+                  </div>
+
+                  <div className="text-accent/80 text-sm font-bold tracking-widest uppercase mb-2">
+                     VALUE {values[currentValueIndex].step}
+                  </div>
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-3">
+                    {values[currentValueIndex].title}
+                  </h3>
+                  <p className="text-muted-foreground text-base leading-relaxed">
+                    {values[currentValueIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="flex justify-center mt-6 gap-3">
+              {values.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentValueIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    idx === currentValueIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
+                  }`}
+                  aria-label={`Go to value ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* DESKTOP VIEW: GRID WITH CONNECTING LINE (Matches Our Process) */}
+          <div className="hidden lg:block relative mt-16">
+            <div className="absolute left-10 right-10 top-16 h-[1px] bg-accent/20 z-0"></div>
+
+            <div className="grid lg:grid-cols-4 gap-6 relative z-10">
+              {values.map((item, index) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover hover:-translate-y-2 border-b-4 border-b-transparent hover:border-b-accent transition-all duration-300 relative group flex flex-col h-full"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-8 shrink-0 group-hover:scale-110 group-hover:bg-accent/20 transition-all duration-300">
+                    <item.icon className="h-7 w-7 text-accent" />
+                  </div>
+
+                  <div className="flex-1">
+                    <div className="text-accent text-xs font-bold tracking-widest uppercase mb-2">
+                       {item.step}
+                    </div>
+                    <h3 className="text-xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-300 mb-4 leading-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-muted-foreground text-[15px] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-12 md:py-16 bg-accent">
+      {/* CTA Section */}
+      <section className="py-12 md:py-16 bg-accent/80">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -263,13 +332,13 @@ const Team = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-accent-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
               Join Our Growing Team
             </h2>
-            <p className="text-lg text-accent-foreground/80 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">
               We're always looking for talented individuals who share our passion for excellence.
             </p>
-            <Button variant="default" size="xl" asChild>
+            <Button variant="default" size="xl" asChild className="hover:scale-105 transition-all duration-300 font-bold bg-primary text-primary-foreground shadow-lg">
               <Link to="/contact">
                 Get in Touch
                 <ArrowRight className="ml-2 h-5 w-5" />

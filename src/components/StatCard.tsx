@@ -5,9 +5,10 @@ interface StatCardProps {
   label: string;
   suffix?: string;
   delay?: number;
+  labelColor?: "white" | "dark";
 }
 
-const StatCard = ({ number, label, suffix = "", delay = 0 }: StatCardProps) => {
+const StatCard = ({ number, label, suffix = "", delay = 0, labelColor = "white" }: StatCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -20,7 +21,7 @@ const StatCard = ({ number, label, suffix = "", delay = 0 }: StatCardProps) => {
         {number}
         <span className="text-accent">{suffix}</span>
       </div>
-      <p className="mt-2 text-primary-foreground/70 font-medium">{label}</p>
+      <p className={`mt-2 font-medium ${labelColor === "dark" ? "text-muted-foreground" : "text-white"}`}>{label}</p>
     </motion.div>
   );
 };

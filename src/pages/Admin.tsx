@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image } from "lucide-react";
+import { Users, FolderOpen, MessageSquare, Plus, Edit2, Trash2, LogOut, Home, Building2, Handshake, Image, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,12 +10,14 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useAuth } from "@/contexts/AuthContext";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { useProjects } from "@/hooks/useProjects";
+import { useServices } from "@/hooks/useServices";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { useClients, Client } from "@/hooks/useClients";
 import { useCollaborations, Collaboration } from "@/hooks/useCollaborations";
 import { useHeroSlides, HeroSlide } from "@/hooks/useHeroSlides";
 import TeamMemberForm from "@/components/admin/TeamMemberForm";
 import ProjectForm from "@/components/admin/ProjectForm";
+import ServiceForm from "@/components/admin/ServiceForm";
 import TestimonialForm from "@/components/admin/TestimonialForm";
 import ClientForm from "@/components/admin/ClientForm";
 import CollaborationForm from "@/components/admin/CollaborationForm";
@@ -27,11 +29,13 @@ import type { Database } from "@/integrations/supabase/types";
 type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
 type Project = Database["public"]["Tables"]["projects"]["Row"];
 type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
+type Service = any;
 
 const Admin = () => {
   const { user, isAdmin, isLoading, signOut } = useAuth();
   const { teamMembers, refetch: refetchTeam } = useTeamMembers();
   const { projects, refetch: refetchProjects } = useProjects();
+  const { services, refetch: refetchServices } = useServices();
   const { testimonials, refetch: refetchTestimonials } = useTestimonials();
   const { clients, refetch: refetchClients } = useClients();
   const { collaborations, refetch: refetchCollaborations } = useCollaborations();
@@ -40,12 +44,14 @@ const Admin = () => {
 
   const [showTeamDialog, setShowTeamDialog] = useState(false);
   const [showProjectDialog, setShowProjectDialog] = useState(false);
+  const [showServiceDialog, setShowServiceDialog] = useState(false);
   const [showTestimonialDialog, setShowTestimonialDialog] = useState(false);
   const [showClientDialog, setShowClientDialog] = useState(false);
   const [showCollaborationDialog, setShowCollaborationDialog] = useState(false);
   const [showHeroSlideDialog, setShowHeroSlideDialog] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [editingService, setEditingService] = useState<Service | null>(null);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [editingCollaboration, setEditingCollaboration] = useState<Collaboration | null>(null);
@@ -100,6 +106,16 @@ const Admin = () => {
     }
   };
 
+  const handleDeleteService = async (id: string) => {
+    const { error } = await supabase.from("services").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Deleted", description: "Service removed successfully." });
+      refetchServices();
+    }
+  };
+
   const handleDeleteTestimonial = async (id: string) => {
     const { error } = await supabase.from("testimonials").delete().eq("id", id);
     if (error) {
@@ -141,7 +157,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen bg-secondary uppercase-none">
       {/* Header */}
       <header className="bg-primary text-primary-foreground py-4 px-6 shadow-lg">
         <div className="container mx-auto flex items-center justify-between">
@@ -168,28 +184,32 @@ const Admin = () => {
           transition={{ duration: 0.5 }}
         >
           <Tabs defaultValue="team" className="space-y-6">
-            <TabsList className="grid w-full max-w-4xl grid-cols-6">
-              <TabsTrigger value="team" className="flex items-center gap-2">
+            <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 w-full lg:grid lg:grid-cols-7 gap-1">
+              <TabsTrigger value="team" className="flex items-center gap-2 py-2.5">
                 <Users className="h-4 w-4" />
                 <span className="hidden sm:inline">Team</span>
               </TabsTrigger>
-              <TabsTrigger value="projects" className="flex items-center gap-2">
+              <TabsTrigger value="projects" className="flex items-center gap-2 py-2.5">
                 <FolderOpen className="h-4 w-4" />
                 <span className="hidden sm:inline">Projects</span>
               </TabsTrigger>
-              <TabsTrigger value="clients" className="flex items-center gap-2">
+              <TabsTrigger value="services" className="flex items-center gap-2 py-2.5">
+                <Briefcase className="h-4 w-4" />
+                <span className="hidden sm:inline">Services</span>
+              </TabsTrigger>
+              <TabsTrigger value="clients" className="flex items-center gap-2 py-2.5">
                 <Building2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Clients</span>
               </TabsTrigger>
-              <TabsTrigger value="collaborations" className="flex items-center gap-2">
+              <TabsTrigger value="collaborations" className="flex items-center gap-2 py-2.5">
                 <Handshake className="h-4 w-4" />
                 <span className="hidden sm:inline">Collaborations</span>
               </TabsTrigger>
-              <TabsTrigger value="testimonials" className="flex items-center gap-2">
+              <TabsTrigger value="testimonials" className="flex items-center gap-2 py-2.5">
                 <MessageSquare className="h-4 w-4" />
                 <span className="hidden sm:inline">Testimonials</span>
               </TabsTrigger>
-              <TabsTrigger value="hero-slides" className="flex items-center gap-2">
+              <TabsTrigger value="hero-slides" className="flex items-center gap-2 py-2.5">
                 <Image className="h-4 w-4" />
                 <span className="hidden sm:inline">Banners</span>
               </TabsTrigger>
@@ -369,6 +389,95 @@ const Admin = () => {
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                                   <AlertDialogAction onClick={() => handleDeleteProject(project.id)}>
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Services Tab */}
+            <TabsContent value="services">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Core Services ({services.length})</CardTitle>
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    onClick={() => {
+                      setEditingService(null);
+                      setShowServiceDialog(true);
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Service
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  {services.length === 0 ? (
+                    <p className="text-muted-foreground text-center py-8">
+                      No services yet. Add your first core service!
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {services.map((service: any) => (
+                        <div
+                          key={service.id}
+                          className="flex items-center gap-4 p-4 bg-background rounded-lg border"
+                        >
+                          <div className="w-16 h-12 rounded bg-muted overflow-hidden shrink-0">
+                            {service.image_url ? (
+                              <img
+                                src={service.image_url}
+                                alt={service.title}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                                <Briefcase className="h-6 w-6" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold truncate">{service.title}</p>
+                            <p className="text-sm text-muted-foreground truncate">
+                              Order: {service.display_order} • Icon: {service.icon_name}
+                            </p>
+                          </div>
+                          <div className="flex gap-2 shrink-0">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setEditingService(service);
+                                setShowServiceDialog(true);
+                              }}
+                            >
+                              <Edit2 className="h-4 w-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="icon" className="text-destructive">
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete service?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete "{service.title}".
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDeleteService(service.id)}>
                                     Delete
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
@@ -745,6 +854,25 @@ const Admin = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Service Dialog */}
+      <Dialog open={showServiceDialog} onOpenChange={setShowServiceDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {editingService ? "Edit Service" : "Add Service"}
+            </DialogTitle>
+          </DialogHeader>
+          <ServiceForm
+            service={editingService}
+            onSuccess={() => {
+              setShowServiceDialog(false);
+              refetchServices();
+            }}
+            onCancel={() => setShowServiceDialog(false)}
+          />
+        </DialogContent>
+      </Dialog>
+
       {/* Client Dialog */}
       <Dialog open={showClientDialog} onOpenChange={setShowClientDialog}>
         <DialogContent className="max-w-lg">
@@ -806,11 +934,16 @@ const Admin = () => {
       <Dialog open={showHeroSlideDialog} onOpenChange={setShowHeroSlideDialog}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>{editingHeroSlide ? "Edit Slide" : "Add Banner Slide"}</DialogTitle>
+            <DialogTitle>
+              {editingHeroSlide ? "Edit Slide" : "Add Slide"}
+            </DialogTitle>
           </DialogHeader>
           <HeroSlideForm
             slide={editingHeroSlide}
-            onSuccess={() => { setShowHeroSlideDialog(false); refetchHeroSlides(); }}
+            onSuccess={() => {
+              setShowHeroSlideDialog(false);
+              refetchHeroSlides();
+            }}
             onCancel={() => setShowHeroSlideDialog(false)}
           />
         </DialogContent>

@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className="bg-primary text-primary-foreground">
       <div className="container-custom py-16">
         {/* Top Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* ======= 1. Company Info ======= */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <Link
               to="/"
               className="flex items-center gap-3 mb-6 whitespace-nowrap"
@@ -24,7 +24,7 @@ const Footer = () => {
               </span>
             </Link>
 
-            <p className="text-primary-foreground/70 leading-relaxed mb-10 ml-[1cm]">
+            <p className="text-primary-foreground/70 leading-relaxed mb-10">
               Building excellence for over 7 years — turning visions into reality
               through precision, quality and dedication.
             </p>
@@ -32,10 +32,10 @@ const Footer = () => {
 
           {/* ======= 2. Quick Links ======= */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-6 ml-[1cm]">
+            <h3 className="text-lg font-display font-semibold mb-6">
               Quick Links
             </h3>
-            <ul className="space-y-3 ml-[1cm]">
+            <ul className="space-y-3">
               {["About Us", "Services", "Clients", "Team", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
 
           {/* ======= 4. Contact Info ======= */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h3 className="text-lg font-display font-semibold mb-6">
               Contact Us
             </h3>
@@ -106,22 +106,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* ======= 5. Google Map ======= */}
-          <div>
-            <h3 className="text-lg font-display font-semibold mb-6">Find Us</h3>
-            <div className="rounded-lg overflow-hidden h-[180px] border border-primary-foreground/20 shadow-sm">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1!2d77.1262589!3d11.1052675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA2JzE5LjAiTiA3N8KwMDcnMzQuNSJF!5e0!3m2!1sen!2sin!4v1"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Shree Vaari Spaces Location"
-              />
-            </div>
-          </div>
         </div>
 
         {/* ======= Bottom Bar ======= */}

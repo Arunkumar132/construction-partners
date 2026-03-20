@@ -27,18 +27,12 @@ const HeroSlideshow = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={currentSlide}
-          src={slideUrls[currentSlide]}
-          alt="Construction showcase"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-          className="w-full h-full object-cover absolute inset-0"
-        />
-      </AnimatePresence>
+      <img
+        key={currentSlide}
+        src={slideUrls[currentSlide]}
+        alt="Construction showcase"
+        className="w-full h-full object-cover absolute inset-0 transition-none"
+      />
       <div className="absolute inset-0 bg-overlay-gradient" />
       
       {slideUrls.length > 1 && (

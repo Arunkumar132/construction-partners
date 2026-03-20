@@ -140,11 +140,7 @@ const Projects = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent rounded-full blur-3xl" />
-        </div>
-
+      <section className="py-12 md:py-16 bg-accent/80">
         <div className="container-custom relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -152,15 +148,15 @@ const Projects = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-primary-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
               Ready to Start Your Project?
             </h2>
-            <p className="text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
+            <p className="text-white/80 mb-6 max-w-2xl mx-auto">
               Let's bring your vision to life. Contact us today for a free consultation.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg"
             >
               Get Started
             </Link>
