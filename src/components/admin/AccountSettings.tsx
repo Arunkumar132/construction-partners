@@ -13,6 +13,7 @@ const AccountSettings = () => {
   const { toast } = useToast();
 
   const [newEmail, setNewEmail] = useState("");
+  const [emailPassword, setEmailPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
