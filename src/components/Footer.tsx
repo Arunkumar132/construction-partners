@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png"; // your logo path here
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className="container-custom py-16">
+      <div className="container-custom pt-16 pb-4">
         {/* Top Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* ======= 1. Company Info ======= */}
@@ -109,18 +109,13 @@ const Footer = () => {
         </div>
 
         {/* ======= Bottom Bar ======= */}
-        <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-primary-foreground/60 text-sm text-center md:text-left">
-            © {new Date().getFullYear()} Shree Vaari Spaces. All rights reserved.
+        <div className="mt-6 pt-4 border-t border-primary-foreground/10 flex flex-col items-center gap-0.5 text-center">
+          <p className="text-primary-foreground/40 text-xs font-normal">
+            © 2026 Shree Vaari Spaces. All Rights Reserved.
           </p>
-          <div className="flex gap-6 text-sm text-primary-foreground/60">
-            <Link to="/privacy-policy" className="hover:text-accent transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="/terms-of-service" className="hover:text-accent transition-colors">
-              Terms of Service
-            </Link>
-          </div>
+          <p className="text-primary-foreground/20 text-[10px] font-medium uppercase tracking-[0.1em]">
+            Developed by <a href="https://strategicknights.com/" target="_blank" rel="noopener noreferrer" className="text-[#9b87f5]/80 font-bold hover:text-[#9b87f5] transition-colors">Strategic Knights</a>
+          </p>
         </div>
       </div>
     </footer>
