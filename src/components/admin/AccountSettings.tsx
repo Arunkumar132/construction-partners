@@ -123,6 +123,17 @@ const AccountSettings = () => {
                 required
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="email-password">Current Password</Label>
+              <Input
+                id="email-password"
+                type="password"
+                placeholder="••••••••"
+                value={emailPassword}
+                onChange={(e) => setEmailPassword(e.target.value)}
+                required
+              />
+            </div>
             <Button type="submit" variant="accent" disabled={isUpdatingEmail} className="w-full">
               <Save className="h-4 w-4 mr-2" />
               {isUpdatingEmail ? "Updating..." : "Update Email"}
