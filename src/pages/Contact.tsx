@@ -95,7 +95,7 @@ const Contact = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-28 bg-hero-gradient bg-primary text-primary-foreground">
+      <section className="relative py-24 md:py-28 bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -103,12 +103,12 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
               Contact Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               Let's Start Building
-              <span className="text-gradient-accent block">Your Dream Project</span>
+              <span className="block">Your Dream Project</span>
             </h1>
             <p className="mt-5 text-lg text-primary-foreground/80">
               Have a question or ready to start? Reach out to us and let's make it happen.

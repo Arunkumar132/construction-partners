@@ -56,7 +56,7 @@ const About = () => {
   return (
     <Layout>
       {/* ================= HERO ================= */}
-      <section className="relative py-24 md:py-28 bg-hero-gradient bg-primary text-primary-foreground">
+      <section className="relative py-24 md:py-28 bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -64,7 +64,7 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
               About Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
@@ -79,29 +79,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* ================= DYNAMIC STATS SECTION ================= */}
-      <section className="relative py-6 md:py-10 bg-primary text-primary-foreground">
-        <div className="container-custom">
-          <SectionHeading
-            title="Dynamic Company Statistics"
-            subtitle="Updated automatically from our latest records"
-            light={true}
-          />
-
-          {statsLoading ? (
-            <p className="text-center text-primary-foreground">Loading stats...</p>
-          ) : statsError ? (
-            <p className="text-center text-red-500">Failed to load statistics.</p>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-              <StatCard number={String(stats?.yearsExperience)} suffix="+" label="Years Experience" delay={0} labelColor="white" />
-              <StatCard number={String(stats?.projectsCount)} suffix="+" label="Projects Completed" delay={0.1} labelColor="white" />
-              <StatCard number={String(stats?.clientsCount)} suffix="+" label="Happy Clients" delay={0.2} labelColor="white" />
-              <StatCard number={String(stats?.teamCount)} suffix="+" label="Team Members" delay={0.3} labelColor="white" />
-            </div>
-          )}
-        </div>
-      </section>
       {/* ================= LEADERSHIP ================= */}
       <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
@@ -130,7 +107,30 @@ const About = () => {
         </div>
       </section>
 
-      
+      {/* ================= DYNAMIC STATS SECTION ================= */}
+      <section className="relative py-6 md:py-6 bg-primary text-primary-foreground">
+        <div className="container-custom">
+          <SectionHeading
+            title="Dynamic Company Statistics"
+            subtitle="Updated automatically from our latest records"
+            light={true}
+          />
+
+          {statsLoading ? (
+            <p className="text-center text-primary-foreground">Loading stats...</p>
+          ) : statsError ? (
+            <p className="text-center text-red-500">Failed to load statistics.</p>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+              <StatCard number={String(stats?.yearsExperience)} suffix="+" label="Years Experience" delay={0} labelColor="white" />
+              <StatCard number={String(stats?.projectsCount)} suffix="+" label="Projects Completed" delay={0.1} labelColor="white" />
+              <StatCard number={String(stats?.clientsCount)} suffix="+" label="Happy Clients" delay={0.2} labelColor="white" />
+              <StatCard number={String(stats?.teamCount)} suffix="+" label="Team Members" delay={0.3} labelColor="white" />
+            </div>
+          )}
+        </div>
+      </section>
+
       <section className="py-16 md:py-24 bg-background border-t border-accent/10">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">

@@ -42,7 +42,7 @@ const Team = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-24 bg-hero-gradient bg-primary text-primary-foreground">
+      <section className="pt-28 pb-12 bg-primary relative overflow-hidden text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -50,12 +50,12 @@ const Team = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
               Our Team
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               The People Behind
-              <span className="text-gradient-accent block">Shree Vaari Spaces</span>
+              <span className="block">Shree Vaari Spaces</span>
             </h1>
             <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
               A dedicated team of professionals united by a passion for construction excellence
