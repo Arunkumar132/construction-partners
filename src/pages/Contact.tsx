@@ -13,8 +13,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    details: ["+91 97993 23394"],
-    action: { label: "Call now", href: "tel:+91 97993 23394" },
+    details: ["+91 96772 83394"],
+    action: { label: "Call now", href: "tel:+919677283394" },
   },
   {
     icon: Mail,
@@ -95,7 +95,7 @@ const Contact = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-28 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -155,7 +155,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-12 md:py-16 bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary bg-primary text-primary-foreground">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Form */}

@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Clients = () => {
   const { clients, isLoading: clientsLoading } = useClients();
   const { collaborations, isLoading: collaborationsLoading } = useCollaborations();
-  
+
   const [currentClientIndex, setCurrentClientIndex] = useState(0);
   const [currentCollabIndex, setCurrentCollabIndex] = useState(0);
 
@@ -39,7 +39,7 @@ const Clients = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-28 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -131,7 +131,7 @@ const Clients = () => {
                         )}
                         <span className="font-semibold text-foreground text-center">{clients[currentClientIndex].name}</span>
                       </div>
-                      
+
                       {/* Arrows outside the box */}
                       <button
                         onClick={() => setCurrentClientIndex((prev) => (prev - 1 + clients.length) % clients.length)}
@@ -155,7 +155,7 @@ const Clients = () => {
       </section>
 
       {/* Collaborations */}
-      <section className="py-12 md:py-16 bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary bg-primary text-primary-foreground">
         <div className="container-custom">
           <SectionHeading
             badge="Featured Work"
@@ -251,7 +251,7 @@ const Clients = () => {
                           <p className="text-muted-foreground">{collaborations[currentCollabIndex].message}</p>
                         )}
                       </div>
-                      
+
                       {/* Arrows outside the box */}
                       <button
                         onClick={() => setCurrentCollabIndex((prev) => (prev - 1 + collaborations.length) % collaborations.length)}

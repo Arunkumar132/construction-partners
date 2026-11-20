@@ -24,7 +24,7 @@ const ProjectDetail = () => {
   if (isLoading) {
     return (
       <Layout>
-        <section className="pt-28 pb-12 bg-primary">
+        <section className="pt-28 pb-12 bg-primary text-primary-foreground">
           <div className="container-custom">
             <Skeleton className="h-10 w-64 mb-3" />
             <Skeleton className="h-5 w-96" />
@@ -45,7 +45,7 @@ const ProjectDetail = () => {
   if (!project) {
     return (
       <Layout>
-        <section className="pt-28 pb-16 bg-primary text-center">
+        <section className="pt-28 pb-16 bg-primary text-center text-primary-foreground">
           <div className="container-custom">
             <h1 className="text-4xl font-display font-bold text-primary-foreground mb-3">
               Project Not Found
@@ -71,7 +71,7 @@ const ProjectDetail = () => {
   return (
     <Layout>
       {/* ================= HERO SECTION ================= */}
-      <section className="relative py-24 md:py-28 overflow-hidden">
+      <section className="relative py-24 md:py-28 overflow-hidden bg-background">
         <div className="absolute inset-0">
           <img
             src={project.image_url || "/placeholder.svg"}
@@ -136,7 +136,7 @@ const ProjectDetail = () => {
       </section>
 
       {/* ================= PROJECT DETAILS ================= */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-12 md:py-16 bg-primary text-primary-foreground">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-10">
             {/* ---------- Left Content ---------- */}
@@ -246,7 +246,7 @@ const ProjectDetail = () => {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="py-12 md:py-16 bg-primary text-center">
+      <section className="py-12 md:py-16 text-center bg-background">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

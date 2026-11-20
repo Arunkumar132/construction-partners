@@ -106,7 +106,7 @@ const Services = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-28 bg-hero-gradient">
+      <section className="relative py-24 md:py-28 bg-hero-gradient bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -147,9 +147,8 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${
-                    index !== displayServices.length - 1 ? "mb-20" : ""
-                  } ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
+                  className={`grid lg:grid-cols-2 gap-12 items-center ${index !== displayServices.length - 1 ? "mb-20" : ""
+                    } ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
                 >
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                     <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
@@ -161,7 +160,7 @@ const Services = () => {
                     <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                       {service.description}
                     </p>
-                    
+
                     <Button variant="accent" size="lg" asChild className="group">
                       <Link to={service.link || "#"}>
                         View Details
@@ -185,7 +184,7 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-secondary relative overflow-hidden">
+      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-secondary relative overflow-hidden bg-primary text-primary-foreground">
         <div className="container-custom max-w-7xl">
           <div className="text-center mb-10 md:mb-12">
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent/15 text-accent text-sm font-semibold mb-6">
@@ -238,9 +237,8 @@ const Services = () => {
                 <button
                   key={idx}
                   onClick={() => setCurrentProcessIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentProcessIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
-                  }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${idx === currentProcessIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
+                    }`}
                   aria-label={`Go to process step ${idx + 1}`}
                 />
               ))}
@@ -284,7 +282,7 @@ const Services = () => {
       </section>
 
       {/* CTA */}
-      <section className="pt-10 pb-12 md:pt-14 md:pb-16 bg-accent/80">
+      <section className="py-12 md:py-16 bg-accent/80">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

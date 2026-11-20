@@ -17,9 +17,9 @@ const StatCard = ({ number, label, suffix = "", delay = 0, labelColor = "white" 
       transition={{ duration: 0.5, delay }}
       className="text-center"
     >
-      <div className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent">
+      <div className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white">
         {number}
-        <span className="text-accent">{suffix}</span>
+        <span className="text-white">{suffix}</span>
       </div>
       <p className={`mt-2 font-medium ${labelColor === "dark" ? "text-muted-foreground" : "text-white"}`}>{label}</p>
     </motion.div>

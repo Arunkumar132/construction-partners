@@ -61,7 +61,7 @@ const ServiceConstruction = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-24 md:py-28 overflow-hidden">
+      <section className="relative py-24 md:py-28 overflow-hidden bg-primary text-primary-foreground">
         <div className="absolute inset-0">
           <img
             src={serviceConstruction}
@@ -143,7 +143,7 @@ const ServiceConstruction = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 md:py-16 bg-secondary">
+      <section className="py-12 md:py-16 bg-secondary bg-primary text-primary-foreground">
         <div className="container-custom">
           <SectionHeading
             badge="Our Process"
@@ -177,7 +177,7 @@ const ServiceConstruction = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-primary">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

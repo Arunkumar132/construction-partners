@@ -12,7 +12,7 @@ const Projects = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-28 pb-12 bg-primary relative overflow-hidden">
+      <section className="pt-28 pb-12 bg-primary relative overflow-hidden text-primary-foreground">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-80 h-80 bg-accent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary rounded-full blur-3xl" />
@@ -25,11 +25,11 @@ const Projects = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-accent rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
               Our Portfolio
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mb-4">
-              Our <span className="text-accent">Projects</span>
+              Our <span className="text-white">Projects</span>
             </h1>
             <p className="text-lg text-primary-foreground/80">
               Explore our completed projects showcasing excellence in construction,
@@ -88,7 +88,7 @@ const Projects = () => {
                       {/* Category Badge */}
                       {project.category && (
                         <div className="absolute top-4 left-4">
-                          <span className="px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full">
+                          <span className="px-3 py-1 bg-accent text-white-foreground text-xs font-medium rounded-full">
                             {project.category}
                           </span>
                         </div>
@@ -106,7 +106,7 @@ const Projects = () => {
 
                     {/* Project Content */}
                     <div className="p-6">
-                      <h3 className="text-xl font-display font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                      <h3 className="text-xl font-display font-bold text-foreground mb-2 group-hover:text-white transition-colors">
                         {project.title}
                       </h3>
 

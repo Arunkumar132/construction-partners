@@ -42,7 +42,7 @@ const Team = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-24 bg-hero-gradient">
+      <section className="relative py-20 md:py-24 bg-hero-gradient bg-primary text-primary-foreground">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -126,83 +126,7 @@ const Team = () => {
         </section>
       )}
 
-      {/* Leadership */}
-      <section className="py-12 md:py-16 bg-secondary">
-        <div className="container-custom">
-          <SectionHeading
-            badge="Leadership"
-            title="Meet Our Leaders"
-            subtitle="The visionaries driving Shree Vaari Spaces forward"
-          />
 
-          {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-card rounded-xl p-6 shadow-card">
-                  <Skeleton className="w-32 h-32 rounded-full mx-auto mb-6" />
-                  <Skeleton className="h-6 w-3/4 mx-auto mb-2" />
-                  <Skeleton className="h-4 w-1/2 mx-auto mb-3" />
-                  <Skeleton className="h-16 w-full" />
-                </div>
-              ))}
-            </div>
-          ) : leadership.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {leadership.map((member, index) => (
-                <motion.div
-                  key={member.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all group"
-                >
-                  <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 ring-4 ring-accent/20">
-                    {member.image_url ? (
-                      <img src={member.image_url} alt={member.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <Users className="h-12 w-12 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-xl font-display font-bold text-foreground">{member.name}</h3>
-                    <p className="text-accent font-medium mb-3">{member.position}</p>
-                    {member.bio && <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>}
-                    <div className="flex justify-center gap-3">
-                      {member.linkedin_url && (
-                        <a
-                          href={member.linkedin_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                        >
-                          <Linkedin className="h-4 w-4" />
-                        </a>
-                      )}
-                      {member.email && (
-                        <a
-                          href={`mailto:${member.email}`}
-                          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                        >
-                          <Mail className="h-4 w-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No leadership team members added yet.</p>
-              <p className="text-sm mt-2">Add team members in the admin panel and mark them as "Leadership".</p>
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* Departments */}
       <section className="py-12 md:py-16 bg-background">
@@ -233,14 +157,14 @@ const Team = () => {
       </section>
 
       {/* Values Redesign */}
-      <section className="py-12 md:py-24 bg-secondary overflow-hidden">
+      <section className="py-12 md:py-24 bg-secondary overflow-hidden bg-background">
         <div className="container-custom">
           <SectionHeading
             badge="Our Culture"
             title="Values We Live By"
             subtitle="The principles that guide our team every day"
           />
-          
+
           {/* MOBILE VIEW: SLIDER (Matches Our Process) */}
           <div className="lg:hidden mt-8">
             <div className="relative h-[320px] flex items-center justify-center">
@@ -261,7 +185,7 @@ const Team = () => {
                   </div>
 
                   <div className="text-accent/80 text-sm font-bold tracking-widest uppercase mb-2">
-                     VALUE {values[currentValueIndex].step}
+                    VALUE {values[currentValueIndex].step}
                   </div>
                   <h3 className="text-2xl font-display font-bold text-foreground mb-3">
                     {values[currentValueIndex].title}
@@ -278,9 +202,8 @@ const Team = () => {
                 <button
                   key={idx}
                   onClick={() => setCurrentValueIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentValueIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
-                  }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${idx === currentValueIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
+                    }`}
                   aria-label={`Go to value ${idx + 1}`}
                 />
               ))}
@@ -307,7 +230,7 @@ const Team = () => {
 
                   <div className="flex-1">
                     <div className="text-accent text-xs font-bold tracking-widest uppercase mb-2">
-                       {item.step}
+                      {item.step}
                     </div>
                     <h3 className="text-xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-300 mb-4 leading-tight">
                       {item.title}

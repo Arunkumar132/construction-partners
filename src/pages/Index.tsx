@@ -210,16 +210,16 @@ const Index = () => {
               transition={{ duration: 0.8 }}
               className="max-w-3xl col-start-1 row-start-1 w-full"
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-4">
+              <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-white text-sm font-semibold mb-4">
                 {heroTextPoints[currentHeroIndex].badge}
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
                 {heroTextPoints[currentHeroIndex].title}
-                <span className="text-gradient-accent block">
+                <span className="text-white block">
                   {heroTextPoints[currentHeroIndex].highlight}
                 </span>
               </h1>
-              <p className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-xl text-justify italic [text-justify:inter-word]">
+              <p className="mt-4 text-lg md:text-xl text-white max-w-xl text-justify italic [text-justify:inter-word]">
                 {heroTextPoints[currentHeroIndex].description}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -278,7 +278,7 @@ const Index = () => {
             title="Our Core Services"
             subtitle="Comprehensive construction and design solutions tailored to your needs"
           />
-          
+
           {servicesLoading ? (
             <div className="flex justify-center items-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
@@ -306,7 +306,7 @@ const Index = () => {
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                           </Link>
-                          
+
                           {/* Arrows */}
                           <button
                             onClick={(e) => {
@@ -459,7 +459,7 @@ const Index = () => {
                       <div className="flex items-start gap-6 md:gap-8">
                         {/* Number Indicator */}
                         <span className="text-muted-foreground/30 font-display font-bold text-2xl md:text-3xl leading-none mt-1 group-hover:text-accent/40 transition-colors">
-                           0{index + 1}
+                          0{index + 1}
                         </span>
                         <div>
                           <h4 className="text-xl md:text-2xl font-display font-bold text-foreground mb-2 md:mb-3 group-hover:text-accent transition-colors">
@@ -549,7 +549,7 @@ const Index = () => {
                   })()}
 
                   <div className="text-accent/80 text-sm md:text-base font-bold tracking-widest uppercase mb-2 text-center">
-                     STEP {process[currentProcessIndex].step}
+                    STEP {process[currentProcessIndex].step}
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3 md:mb-4 text-center">
                     {process[currentProcessIndex].title}
@@ -566,9 +566,8 @@ const Index = () => {
                 <button
                   key={idx}
                   onClick={() => setCurrentProcessIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentProcessIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
-                  }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${idx === currentProcessIndex ? "w-8 bg-accent/80" : "w-2.5 bg-accent/30 hover:bg-accent/50"
+                    }`}
                   aria-label={`Go to process step ${idx + 1}`}
                 />
               ))}
@@ -596,7 +595,7 @@ const Index = () => {
 
                   <div className="flex-1">
                     <div className="text-accent text-xs font-bold tracking-widest uppercase mb-2">
-                       STEP {item.step}
+                      STEP {item.step}
                     </div>
                     <h3 className="text-xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-300 mb-4 leading-tight">
                       {item.title}
@@ -625,7 +624,7 @@ const Index = () => {
             >
 
               <span className="inline-block px-4 py-1.5 rounded-full bg-accent/15 text-accent text-sm font-semibold mb-6">
-                 Our Legacy
+                Our Legacy
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-5xl font-display font-bold text-foreground mb-8 leading-[1.1]">
                 Our Experience &<br />Achievements
@@ -673,7 +672,7 @@ const Index = () => {
                   <h3 className="text-sm sm:text-lg md:text-2xl font-display font-bold text-foreground mb-6 md:mb-10 text-center lg:text-left">
                     Highlights Panel
                   </h3>
-                  
+
                   <div className="grid grid-cols-3 gap-1 sm:gap-4 lg:gap-8">
                     {[
                       "Expertise in Multiple Services",
@@ -725,14 +724,14 @@ const Index = () => {
               consultation and quote today.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Button variant="default" size="lg" asChild className="hover:scale-105 transition-all duration-300 font-bold bg-primary text-primary-foreground">
+              <Button variant="default" size="lg" asChild className="hover:scale-105 transition-all duration-300 font-bold bg-primary text-white">
                 <Link to="/contact">
                   Get Free Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button variant="heroOutline" size="lg" asChild className="border-white text-white hover:bg-white/10 backdrop-blur-sm">
-                <a href="tel:+91 97883 23394">Call Us Now</a>
+                <a href="tel:+919677283394">Call Us Now</a>
               </Button>
             </div>
           </motion.div>
