@@ -25,8 +25,8 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Address",
-    details: ["No: 26-A, Bishop Amburose Nagar", "Arasur, Sulur, Coimbatore - 641 407"],
-    action: { label: "Get directions", href: "https://www.google.com/maps?q=11.105278,77.126250" },
+    details: ["No: 26-A, Bishop Amburose Nagar", "Arasur, Coimbatore - 641 407"],
+    action: { label: "Get directions", href: "https://www.google.com/maps?q=11.024430274963379,77.00723266601562" },
   },
   {
     icon: Clock,
@@ -272,7 +272,7 @@ const Contact = () => {
               className="h-[400px] lg:h-auto min-h-[400px] rounded-xl overflow-hidden shadow-card"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1!2d77.1234!3d11.1053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA2JzE5LjAiTiA3N8KwMDcnMzQuNSJF!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                src="https://maps.google.com/maps?q=11.024430274963379,77.00723266601562&hl=en&z=15&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
