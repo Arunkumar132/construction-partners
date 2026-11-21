@@ -241,7 +241,7 @@ const Index = () => {
       {/* ================= STATS SECTION ================= */}
       <section className="bg-primary py-10">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-[#F3D299]">
             <StatCard
               number={String(stats?.yearsExperience || 7)}
               suffix="+"

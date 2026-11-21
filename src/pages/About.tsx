@@ -64,14 +64,14 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-[#F3D299] rounded-full text-sm font-medium mb-5">
               About Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#F3D299] leading-tight">
               Crafting Quality Spaces
               <span className="block">Since 7 Years.</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
+            <p className="mt-6 text-lg text-[#F3D299] max-w-xl mx-auto">
               Since 2018, we've been transforming the construction landscape with innovation,
               dedication and an unwavering commitment to quality.
             </p>
@@ -150,16 +150,19 @@ const About = () => {
       </section>
 
       {/* ================= DYNAMIC STATS SECTION ================= */}
-      <section className="relative py-6 md:py-6 bg-primary text-primary-foreground">
+      <section className="relative py-6 md:py-6 bg-primary text-[#F3D299]">
         <div className="container-custom">
-          <SectionHeading
-            title="Dynamic Company Statistics"
-            subtitle="Updated automatically from our latest records"
-            light={true}
-          />
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-[#F3D299]">
+              Dynamic Company Statistics
+            </h2>
+            <p className="mt-4 text-lg text-[#F3D299]/70">
+              Updated automatically from our latest records
+            </p>
+          </div>
 
           {statsLoading ? (
-            <p className="text-center text-primary-foreground">Loading stats...</p>
+            <p className="text-center text-[#F3D299]">Loading stats...</p>
           ) : statsError ? (
             <p className="text-center text-red-500">Failed to load statistics.</p>
           ) : (

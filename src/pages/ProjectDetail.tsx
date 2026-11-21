@@ -147,10 +147,10 @@ const ProjectDetail = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="text-2xl font-display font-bold text-foreground mb-3">
+                <h2 className="text-2xl font-display font-bold text-[#F3D299] mb-3">
                   Project Overview
                 </h2>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-muted-[#F3D299] text-lg leading-relaxed">
                   {project.description ||
                     "No description is available for this project yet."}
                 </p>
@@ -164,7 +164,7 @@ const ProjectDetail = () => {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="mt-10"
               >
-                <h2 className="text-2xl font-display font-bold text-foreground mb-5">
+                <h2 className="text-2xl font-display font-bold text-[#F3D299] mb-5">
                   Project Gallery
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -254,10 +254,10 @@ const ProjectDetail = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-primary-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
               Interested in a Similar Project?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto mb-6">
               Reach out today — let’s bring your next vision to life with our
               expert design and construction team.
             </p>

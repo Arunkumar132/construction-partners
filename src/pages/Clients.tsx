@@ -39,7 +39,7 @@ const Clients = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-28 pb-12 bg-primary relative overflow-hidden text-primary-foreground">
+      <section className="pt-28 pb-12 bg-primary relative overflow-hidden text-[#F3D299]">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -47,14 +47,14 @@ const Clients = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-[#F3D299] rounded-full text-sm font-medium mb-5">
               Our Clients
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#F3D299] leading-tight">
               Trusted by Industry
               <span className="block">Leaders</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80">
+            <p className="mt-6 text-lg text-[#F3D299]">
               We've partnered with leading developers and businesses to create iconic structures
               that stand the test of time.
             </p>

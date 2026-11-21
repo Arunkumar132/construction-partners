@@ -103,14 +103,14 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-[#F3D299] rounded-full text-sm font-medium mb-5">
               Contact Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#F3D299] leading-tight">
               Let's Start Building
               <span className="block">Your Dream Project</span>
             </h1>
-            <p className="mt-5 text-lg text-primary-foreground/80">
+            <p className="mt-5 text-lg text-[#F3D299]">
               Have a question or ready to start? Reach out to us and let's make it happen.
             </p>
           </motion.div>

@@ -50,14 +50,14 @@ const Team = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-[#F3D299] rounded-full text-sm font-medium mb-5">
               Our Team
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#F3D299] leading-tight">
               The People Behind
               <span className="block">Shree Vaari Spaces</span>
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-xl mx-auto">
+            <p className="mt-6 text-lg text-[#F3D299] max-w-xl mx-auto">
               A dedicated team of professionals united by a passion for construction excellence
               and innovation.
             </p>

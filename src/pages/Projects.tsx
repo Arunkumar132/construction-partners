@@ -25,13 +25,13 @@ const Projects = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="inline-block px-4 py-2 bg-accent/20 text-white rounded-full text-sm font-medium mb-5">
+            <span className="inline-block px-4 py-2 bg-accent/20 text-[#F3D299] rounded-full text-sm font-medium mb-5">
               Our Portfolio
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mb-4">
-              Our <span className="text-white">Projects</span>
+              <span className="text-[#F3D299]">Our Projects</span>
             </h1>
-            <p className="text-lg text-primary-foreground/80">
+            <p className="text-lg text-[#F3D299]">
               Explore our completed projects showcasing excellence in construction,
               interior design and exterior works.
             </p>
