@@ -87,22 +87,64 @@ const About = () => {
             title="Meet Our Leaders"
             subtitle="Our dedicated leadership team"
           />
-          <div className="flex justify-center">
-            <div className="bg-card rounded-xl p-8 shadow-card max-w-sm text-center">
-              <img
-                src="/assets/ceo.png"
-                alt="CEO"
-                className="w-48 h-48 rounded-full mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-2xl font-display font-bold text-foreground mb-2">
-                Narayanan
-              </h3>
-              <p className="text-muted-foreground mb-4">Founder &amp; CEO</p>
-              <p className="text-muted-foreground">
-                Narayanan's visionary leadership has guided Shree Vaari Spaces to become a trusted name in construction. His commitment to quality, innovation, and client satisfaction inspires the entire team to deliver exceptional results every day.
-              </p>
-              {/* Replace the placeholder image by uploading a new file to <project-root>/public/assets/ceo.png – the next build will pick it up automatically. */}
-            </div>
+          {/* ---------- Leadership – fully data‑driven ---------- */}
+          <div className="flex flex-wrap justify-center gap-8">
+            {leadership.length > 0 ? (
+              leadership.map((member) => (
+                <div
+                  key={member.id}
+                  className="bg-card rounded-xl p-8 shadow-card max-w-sm text-center flex flex-col items-center"
+                >
+                  {member.image_url ? (
+                    <img
+                      src={member.image_url}
+                      alt={member.name}
+                      className="w-48 h-48 rounded-full mx-auto mb-4 object-cover"
+                    />
+                  ) : (
+                    <img
+                      src="/assets/ceo.png"
+                      alt="Placeholder"
+                      className="w-48 h-48 rounded-full mx-auto mb-4 object-cover opacity-30"
+                    />
+                  )}
+
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-2">
+                    {member.name || "Unnamed Leader"}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    {member.position || "Leadership Role"}
+                  </p>
+
+                  {member.bio && (
+                    <p className="text-muted-foreground">{member.bio}</p>
+                  )}
+
+                  <div className="flex gap-3 mt-2">
+                    {member.linkedin_url && (
+                      <a
+                        href={member.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                      >
+                        <Linkedin className="h-4 w-4" />
+                      </a>
+                    )}
+                    {member.email && (
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                      >
+                        <Mail className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground">No leadership data available.</p>
+            )}
           </div>
         </div>
       </section>
