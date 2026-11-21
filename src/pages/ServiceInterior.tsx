@@ -86,19 +86,19 @@ const ServiceInterior = () => {
           >
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 mb-4 transition-colors"
+              className="inline-flex items-center gap-2 text-primary-foreground hover:text-accent/80 mb-4 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to Services
             </Link>
 
-            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-4">
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-primary-forground text-sm font-semibold mb-4">
               Interior Design
             </span>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
               Crafting Beautiful
-              <span className="text-gradient-accent block">Living Spaces</span>
+              <span className="text-primary-foreground block">Living Spaces</span>
             </h1>
 
             <p className="mt-4 text-lg text-primary-foreground/80 max-w-xl">
@@ -191,10 +191,10 @@ const ServiceInterior = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-3">
               Ready to Transform Your Space?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto mb-6">
               Let’s bring your vision to life with interiors that are functional, elegant
               and uniquely yours.
             </p>

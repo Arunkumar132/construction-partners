@@ -90,12 +90,12 @@ const ServiceConstruction = () => {
               Construction
             </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground leading-tight">
               Building Strong
-              <span className="text-gradient-accent block">Foundations</span>
+              <span className="text-foreground block">Foundations</span>
             </h1>
 
-            <p className="mt-4 text-lg text-primary-foreground/80 max-w-xl">
+            <p className="mt-4 text-lg text-foreground/80 max-w-xl">
               From groundbreaking to completion, we deliver comprehensive construction
               services that meet the highest standards of quality and safety.
             </p>
@@ -185,10 +185,10 @@ const ServiceConstruction = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-3">
               Ready to Build Your Dream?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto mb-6">
               Contact us today for a free consultation and quote.
             </p>
             <Button variant="hero" size="xl" asChild>

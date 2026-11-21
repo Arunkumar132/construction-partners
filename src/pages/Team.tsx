@@ -28,7 +28,7 @@ const Team = () => {
   const { teamMembers, isLoading } = useTeamMembers();
   const [currentValueIndex, setCurrentValueIndex] = useState(0);
 
-  const leadership = teamMembers.filter((m) => m.is_leadership);
+  const leadership = teamMembers.filter((m) => Boolean(m.is_leadership));
   const expertTeam = teamMembers.filter((m) => !m.is_leadership);
 
   // Auto-slide for mobile values section
@@ -66,7 +66,26 @@ const Team = () => {
       </section>
 
       {/* Expert Team */}
-      {expertTeam.length > 0 && (
+      {isLoading ? (
+        <section className="py-8 md:py-10 bg-background">
+          <div className="container-custom">
+            <SectionHeading
+              badge="Our Experts"
+              title="Expert Team Members"
+              subtitle="Skilled professionals delivering excellence"
+            />
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="bg-card rounded-xl p-6 shadow-card flex flex-col items-center">
+                  <Skeleton className="w-32 h-32 rounded-full mb-6" />
+                  <Skeleton className="h-6 w-32 mb-2" />
+                  <Skeleton className="h-4 w-24 mb-4" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : expertTeam.length > 0 ? (
         <section className="py-8 md:py-10 bg-background">
           <div className="container-custom">
             <SectionHeading
@@ -124,7 +143,7 @@ const Team = () => {
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
 
 

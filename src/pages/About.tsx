@@ -44,7 +44,7 @@ const About = () => {
   const { data: stats, isLoading: statsLoading, error: statsError } = useDynamicStats();
   // Load team members
   const { teamMembers, isLoading: teamLoading, error: teamError } = useTeamMembers();
-  const leadership = teamMembers.filter((m) => m.is_leadership);
+  const leadership = teamMembers.filter((m) => Boolean(m.is_leadership));
 
   // Updated achievements using dynamic stats
   const updatedAchievements = [
@@ -102,11 +102,9 @@ const About = () => {
                       className="w-48 h-48 rounded-full mx-auto mb-4 object-cover"
                     />
                   ) : (
-                    <img
-                      src="/assets/ceo.png"
-                      alt="Placeholder"
-                      className="w-48 h-48 rounded-full mx-auto mb-4 object-cover opacity-30"
-                    />
+                    <div className="w-48 h-48 rounded-full mx-auto mb-4 bg-muted flex items-center justify-center">
+                      <Users className="h-16 w-16 text-muted-foreground" />
+                    </div>
                   )}
 
                   <h3 className="text-2xl font-display font-bold text-foreground mb-2">

@@ -18,10 +18,21 @@ interface ProjectFormProps {
 }
 
 const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
+  // Extract up to 3 images from comma-separated image_url
+  const initialImages = (project?.image_url || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const [images, setImages] = useState<string[]>([
+    initialImages[0] || "",
+    initialImages[1] || "",
+    initialImages[2] || "",
+  ]);
+
   const [formData, setFormData] = useState({
     title: project?.title || "",
     description: project?.description || "",
-    image_url: project?.image_url || "",
     category: project?.category || "",
     client: project?.client || "",
     location: project?.location || "",
@@ -36,9 +47,18 @@ const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
     e.preventDefault();
     setIsLoading(true);
 
+    const combinedImageUrl = images.filter(Boolean).join(",") || null;
+
     const dataToSubmit = {
-      ...formData,
+      title: formData.title,
+      description: formData.description || null,
+      image_url: combinedImageUrl,
+      category: formData.category || null,
+      client: formData.client || null,
+      location: formData.location || null,
       completed_at: formData.completed_at || null,
+      display_order: formData.display_order,
+      is_featured: formData.is_featured,
     };
 
     const operation = project
@@ -86,12 +106,41 @@ const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
         />
       </div>
 
-      <ImageUpload
-        label="Project Image"
-        value={formData.image_url}
-        onChange={(url) => setFormData({ ...formData, image_url: url })}
-        folder="projects"
-      />
+      <div className="space-y-2">
+        <Label>Project Images (Up to 3)</Label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ImageUpload
+            label="Image 1 (Main Cover)"
+            value={images[0] || ""}
+            onChange={(url) => {
+              const next = [...images];
+              next[0] = url;
+              setImages(next);
+            }}
+            folder="projects"
+          />
+          <ImageUpload
+            label="Image 2"
+            value={images[1] || ""}
+            onChange={(url) => {
+              const next = [...images];
+              next[1] = url;
+              setImages(next);
+            }}
+            folder="projects"
+          />
+          <ImageUpload
+            label="Image 3"
+            value={images[2] || ""}
+            onChange={(url) => {
+              const next = [...images];
+              next[2] = url;
+              setImages(next);
+            }}
+            folder="projects"
+          />
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">

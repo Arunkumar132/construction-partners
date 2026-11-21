@@ -346,7 +346,7 @@ const Admin = () => {
                           <div className="w-16 h-12 rounded bg-muted overflow-hidden shrink-0">
                             {project.image_url ? (
                               <img
-                                src={project.image_url}
+                                src={project.image_url.split(",")[0].trim() || "/placeholder.svg"}
                                 alt={project.title}
                                 className="w-full h-full object-cover"
                               />

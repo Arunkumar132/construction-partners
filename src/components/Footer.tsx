@@ -4,7 +4,7 @@ import logo from "@/assets/logo.png"; // your logo path here
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary text-[#F3D299]">
       <div className="container-custom pt-16 pb-4">
         {/* Top Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -19,12 +19,12 @@ const Footer = () => {
                 alt="Shree Vaari Spaces Logo"
                 className="h-10 w-auto object-contain"
               />
-              <span className="text-xl font-display font-bold tracking-tight">
+              <span className="text-xl font-display font-bold tracking-tight text-[#F3D299]">
                 Shree Vaari Spaces
               </span>
             </Link>
 
-            <p className="text-primary-foreground/70 leading-relaxed mb-10">
+            <p className="text-[#F3D299]/80 leading-relaxed mb-10">
               Building excellence for over 7 years — turning visions into reality
               through precision, quality and dedication.
             </p>
@@ -32,7 +32,7 @@ const Footer = () => {
 
           {/* ======= 2. Quick Links ======= */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-6">
+            <h3 className="text-lg font-display font-semibold mb-6 text-[#F3D299]">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -40,7 +40,7 @@ const Footer = () => {
                 <li key={item}>
                   <Link
                     to={`/${item.toLowerCase().replace(" ", "-").replace("about-us", "about")}`}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors"
+                    className="text-[#F3D299]/80 hover:text-accent transition-colors"
                   >
                     {item}
                   </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
 
           {/* ======= 3. Services ======= */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-6">
+            <h3 className="text-lg font-display font-semibold mb-6 text-[#F3D299]">
               Our Services
             </h3>
             <ul className="space-y-3">
@@ -64,7 +64,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     to={item.path}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors"
+                    className="text-[#F3D299]/80 hover:text-accent transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -75,13 +75,13 @@ const Footer = () => {
 
           {/* ======= 4. Contact Info ======= */}
           <div className="col-span-2 lg:col-span-1">
-            <h3 className="text-lg font-display font-semibold mb-6">
+            <h3 className="text-lg font-display font-semibold mb-6 text-[#F3D299]">
               Contact Us
             </h3>
             <ul className="space-y-6">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-                <span className="text-primary-foreground/70 leading-snug">
+                <span className="text-[#F3D299]/80 leading-snug">
                   No: 26-A, Bishop Amburose Nagar, Arasur, Sulur, Coimbatore – 641 407
                 </span>
               </li>
@@ -89,7 +89,7 @@ const Footer = () => {
                 <Phone className="h-5 w-5 text-accent" />
                 <a
                   href="tel:+919677283394"
-                  className="text-primary-foreground/70 hover:text-accent transition-colors"
+                  className="text-[#F3D299]/80 hover:text-accent transition-colors"
                 >
                   +91 96772 83394
                 </a>
@@ -98,7 +98,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-accent" />
                 <a
                   href="mailto:info@shreevaarispaces.com"
-                  className="text-primary-foreground/70 hover:text-accent transition-colors"
+                  className="text-[#F3D299]/80 hover:text-accent transition-colors"
                 >
                   info@shreevaarispaces.com
                 </a>
@@ -109,11 +109,11 @@ const Footer = () => {
         </div>
 
         {/* ======= Bottom Bar ======= */}
-        <div className="mt-6 pt-4 border-t border-primary-foreground/10 flex flex-col items-center gap-0.5 text-center">
-          <p className="text-primary-foreground/40 text-xs font-normal">
+        <div className="mt-6 pt-4 border-t border-[#F3D299]/20 flex flex-col items-center gap-0.5 text-center">
+          <p className="text-[#F3D299]/60 text-xs font-normal">
             © 2026 Shree Vaari Spaces. All Rights Reserved.
           </p>
-          <p className="text-primary-foreground/20 text-[10px] font-medium uppercase tracking-[0.1em]">
+          <p className="text-[#F3D299]/40 text-[10px] font-medium uppercase tracking-[0.1em]">
             Developed by <a href="https://strategicknights.com/" target="_blank" rel="noopener noreferrer" className="text-[#9b87f5]/80 font-bold hover:text-[#9b87f5] transition-colors">Strategic Knights</a>
           </p>
         </div>

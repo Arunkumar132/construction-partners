@@ -80,7 +80,7 @@ const Projects = () => {
                     {/* Project Image */}
                     <div className="relative aspect-video overflow-hidden">
                       <img
-                        src={project.image_url || "/placeholder.svg"}
+                        src={(project.image_url?.split(",")[0] || "").trim() || "/placeholder.svg"}
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

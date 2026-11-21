@@ -68,13 +68,19 @@ const ProjectDetail = () => {
   // --------------------------
   // Main Render
   // --------------------------
+  const projectImages = (project.image_url || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const coverImage = projectImages[0] || "/placeholder.svg";
+
   return (
     <Layout>
       {/* ================= HERO SECTION ================= */}
       <section className="relative py-24 md:py-28 overflow-hidden bg-background">
         <div className="absolute inset-0">
           <img
-            src={project.image_url || "/placeholder.svg"}
+            src={coverImage}
             alt={project.title}
             className="w-full h-full object-cover"
           />
@@ -167,12 +173,17 @@ const ProjectDetail = () => {
                 <h2 className="text-2xl font-display font-bold text-[#F3D299] mb-5">
                   Project Gallery
                 </h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <img
-                    src={project.image_url || "/placeholder.svg"}
-                    alt={project.title}
-                    className="w-full aspect-video object-cover rounded-xl"
-                  />
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {(projectImages.length > 0 ? projectImages : [coverImage]).map(
+                    (src, idx) => (
+                      <img
+                        key={idx}
+                        src={src}
+                        alt={`${project.title} - ${idx + 1}`}
+                        className="w-full aspect-video object-cover rounded-xl"
+                      />
+                    )
+                  )}
                 </div>
               </motion.div>
             </div>
